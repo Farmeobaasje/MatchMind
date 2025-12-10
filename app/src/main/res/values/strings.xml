@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">MatchMindAI</string>
+    
+    <!-- Navigation -->
+    <string name="match_screen_title">Match Voorspelling</string>
+    <string name="settings_screen_title">Instellingen</string>
+    
+    <!-- Match Screen -->
+    <string name="home_team_label">Thuisploeg</string>
+    <string name="home_team_placeholder">Bijv. Ajax</string>
+    <string name="away_team_label">Uitploeg</string>
+    <string name="away_team_placeholder">Bijv. Feyenoord</string>
+    <string name="predict_button">VOORSPELLEN</string>
+    <string name="analyzing_text">ANALYSEREN...</string>
+    
+    <!-- Settings Screen -->
+    <string name="api_key_label">DeepSeek API Key</string>
+    <string name="api_key_placeholder">Voer je API key in</string>
+    <string name="save_button">OPSLAAN</string>
+    <string name="api_key_info">Je API key wordt lokaal opgeslagen en nooit gedeeld.</string>
+    <string name="get_api_key_link">Waar vind ik mijn API key?</string>
+    <string name="deepseek_url">https://platform.deepseek.com/api_keys</string>
+    
+    <!-- Live Data Settings -->
+    <string name="use_live_data_label">Gebruik Live Data</string>
+    <string name="use_live_data_description">Scrapt actueel nieuws voor betere voorspellingen (kost meer data).</string>
+    
+    <!-- Prediction Card -->
+    <string name="winner_label">WINNAAR</string>
+    <string name="confidence_label">CONFIDENCE</string>
+    <string name="risk_level_label">RISICO NIVEAU:</string>
+    <string name="analysis_label">ANALYSE</string>
+    
+    <!-- Confidence Levels -->
+    <string name="confidence_very_high">ZEER HOOG</string>
+    <string name="confidence_moderate">MATIG</string>
+    <string name="confidence_low">LAAG</string>
+    
+    <!-- Risk Levels -->
+    <string name="risk_low">LAAG</string>
+    <string name="risk_moderate">MATIG</string>
+    <string name="risk_high">HOOG</string>
+    
+    <!-- Error Messages -->
+    <string name="error_missing_api_key">API key ontbreekt. Ga naar instellingen.</string>
+    <string name="error_prediction_failed">Voorspelling mislukt. Controleer je API key en internetverbinding.</string>
+    <string name="error_invalid_input">Voer beide teamnamen in.</string>
+    <string name="error_save_failed">Opslaan mislukt. Probeer opnieuw.</string>
+    <string name="success_saved">API key opgeslagen!</string>
+    
+    <!-- Empty States -->
+    <string name="welcome_message">Welke wedstrijd analyseren we vandaag?</string>
+    <string name="no_prediction_yet">Voer teamnamen in en klik op VOORSPELLEN voor een analyse.</string>
+</resources>
