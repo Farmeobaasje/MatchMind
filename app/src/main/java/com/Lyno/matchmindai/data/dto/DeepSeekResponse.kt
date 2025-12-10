@@ -50,7 +50,8 @@ data class MatchPredictionResponse(
     @SerialName("confidence_score") val confidenceScore: Int,
     @SerialName("risk_level") val riskLevel: RiskLevel,
     @SerialName("reasoning") val reasoning: String,
-    @SerialName("key_factor") val keyFactor: String
+    @SerialName("key_factor") val keyFactor: String,
+    @SerialName("recent_matches") val recentMatches: List<String> = emptyList()
 ) {
     @Serializable
     enum class RiskLevel {

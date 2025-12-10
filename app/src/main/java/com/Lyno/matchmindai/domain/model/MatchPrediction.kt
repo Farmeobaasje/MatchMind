@@ -11,7 +11,8 @@ data class MatchPrediction(
     val confidenceScore: Int, // 0-100
     val riskLevel: RiskLevel,
     val reasoning: String,
-    val keyFactor: String
+    val keyFactor: String,
+    val recentMatches: List<String> = emptyList()
 ) {
     enum class RiskLevel {
         LOW, MEDIUM, HIGH
@@ -53,7 +54,8 @@ data class MatchPrediction(
             confidenceScore = 0,
             riskLevel = RiskLevel.HIGH,
             reasoning = "Kon geen voorspelling maken.",
-            keyFactor = "Onbekend"
+            keyFactor = "Onbekend",
+            recentMatches = emptyList()
         )
     }
 }

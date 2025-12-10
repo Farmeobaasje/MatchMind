@@ -26,9 +26,9 @@ class WebScraper {
     suspend fun scrapeMatchContext(homeTeam: String, awayTeam: String): String {
         return withContext(Dispatchers.IO) {
             try {
-                // Build search query for match prediction context
-                val query = "$homeTeam vs $awayTeam prediction injuries stats"
-                val url = "https://html.duckduckgo.com/html/?q=${query.replace(" ", "+")}"
+            // Build search query for match prediction context with focus on recent results
+            val query = "$homeTeam vs $awayTeam last matches results scores"
+            val url = "https://html.duckduckgo.com/html/?q=${query.replace(" ", "+")}"
                 
                 Log.d("WebScraper", "Scraping match context from: $url")
                 

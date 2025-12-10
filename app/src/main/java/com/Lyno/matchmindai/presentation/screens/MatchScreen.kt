@@ -157,6 +157,7 @@ fun MatchScreen(
                     confidenceScore = uiState.prediction.confidenceScore,
                     riskLevel = uiState.prediction.riskLevel,
                     reasoning = uiState.prediction.reasoning,
+                    recentMatches = uiState.prediction.recentMatches,
                     modifier = Modifier.fillMaxWidth(),
                     animate = false
                 )

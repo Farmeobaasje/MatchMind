@@ -168,7 +168,8 @@ private fun MatchPredictionResponse.toDomainModel(
         confidenceScore = confidenceScore,
         riskLevel = MatchPrediction.RiskLevel.valueOf(riskLevel.name),
         reasoning = reasoning,
-        keyFactor = keyFactor
+        keyFactor = keyFactor,
+        recentMatches = recentMatches
     )
 }
 
@@ -189,6 +190,12 @@ private fun buildEnrichedPrompt(homeTeam: String, awayTeam: String, scrapedConte
         2. Gebruik deze details EXPLICIET in je onderbouwing. (Bijv: "Omdat speler X geblesseerd is...").
         3. Als de web-info leeg of niet relevant is, val terug op je algemene kennis.
         
+        EXTRA OPDRACHT - BEWIJSLAST:
+        Scan de web-tekst naar specifieke uitslagen van de laatste paar weken.
+        Vul de lijst "recent_matches" met strings in dit formaat: "[Datum/Competitie] Team A - Team B (Score)".
+        Bijvoorbeeld: "Eredivisie: Ajax - NEC (1-0)".
+        Probeer minimaal 3 relevante uitslagen te vinden. Als je geen scores vindt, laat de lijst leeg.
+        
         OUTPUT EISEN:
         - Taal: Nederlands.
         - Format: JSON (zoals eerder gedefinieerd).
@@ -201,7 +208,8 @@ private fun buildEnrichedPrompt(homeTeam: String, awayTeam: String, scrapedConte
           "confidence_score": 0-100,
           "risk_level": "LOW/MEDIUM/HIGH",
           "reasoning": "Korte analyse (max 3 zinnen).",
-          "key_factor": "Eén kernzin (max 5 woorden)."
+          "key_factor": "Eén kernzin (max 5 woorden).",
+          "recent_matches": ["Eredivisie: Ajax - NEC (1-0)", "28-11: Real Sociedad - Ajax (0-2)", "24-11: Ajax - PEC Zwolle (2-0)"]
         }
     """.trimIndent()
 }

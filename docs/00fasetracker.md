@@ -93,7 +93,16 @@ Dit document houdt de voortgang van het project bij.
 - [x] `SettingsScreen` geüpdatet met Switch component voor "Gebruik Live Data" instelling.
 - [x] String resources toegevoegd voor nieuwe UI elementen.
 
-### 4.4 Polish
+### 4.4 Verifiable Predictions Feature
+- [x] Domain model geüpdatet: `MatchPrediction.kt` met `recentMatches: List<String>` veld.
+- [x] DTOs geüpdatet: `DeepSeekResponse.kt` met `recent_matches` serialization.
+- [x] Mapper geüpdatet: `MatchRepositoryImpl.kt` met mapping van recentMatches.
+- [x] Web scraper query verbeterd: Focus op "last matches results scores".
+- [x] Prompt engineering geüpdatet: BEWIJSLAST instructie toegevoegd voor recente uitslagen.
+- [x] UI component geüpdatet: `PredictionCard.kt` toont "Recente Uitslagen" sectie.
+- [x] MatchScreen geüpdatet: Passeert recentMatches naar PredictionCard.
+
+### 4.5 Polish
 - [ ] App Icoon toevoegen.
 - [ ] Naam in `strings.xml` controleren.
 - [ ] Code opschonen (overbodige logs verwijderen).

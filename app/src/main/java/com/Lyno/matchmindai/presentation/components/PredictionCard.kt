@@ -38,6 +38,7 @@ fun PredictionCard(
     confidenceScore: Int,
     riskLevel: com.Lyno.matchmindai.domain.model.MatchPrediction.RiskLevel,
     reasoning: String,
+    recentMatches: List<String> = emptyList(),
     modifier: Modifier = Modifier,
     animate: Boolean = true
 ) {
@@ -160,6 +161,29 @@ fun PredictionCard(
                     lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.2
                 )
             }
+            
+            // Recent Matches (only if not empty)
+            if (recentMatches.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Column {
+                    Text(
+                        text = "RECENTE UITSLAGEN",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TextMedium
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Column {
+                        recentMatches.forEach { match ->
+                            Text(
+                                text = "• $match",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontFamily = MaterialTheme.typography.labelMedium.fontFamily
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -172,7 +196,12 @@ fun PredictionCardHighConfidencePreview() {
             winner = "Ajax",
             confidenceScore = 85,
             riskLevel = com.Lyno.matchmindai.domain.model.MatchPrediction.RiskLevel.LOW,
-            reasoning = "Ajax toont consistente prestaties thuis met een sterk middenveld. De tegenstander heeft moeite met uitwedstrijden en mist enkele sleutelspelers door blessures."
+            reasoning = "Ajax toont consistente prestaties thuis met een sterk middenveld. De tegenstander heeft moeite met uitwedstrijden en mist enkele sleutelspelers door blessures.",
+            recentMatches = listOf(
+                "01-12: Ajax - NEC (1-0)",
+                "28-11: Real Sociedad - Ajax (0-2)",
+                "24-11: Ajax - PEC Zwolle (2-0)"
+            )
         )
     }
 }
@@ -185,7 +214,12 @@ fun PredictionCardMediumConfidencePreview() {
             winner = "Feyenoord",
             confidenceScore = 72,
             riskLevel = com.Lyno.matchmindai.domain.model.MatchPrediction.RiskLevel.MEDIUM,
-            reasoning = "Feyenoord heeft thuisvoordeel maar de tegenstander komt met een versterkte defensie. De uitkomst hangt af van vroege doelpunten."
+            reasoning = "Feyenoord heeft thuisvoordeel maar de tegenstander komt met een versterkte defensie. De uitkomst hangt af van vroege doelpunten.",
+            recentMatches = listOf(
+                "03-12: Feyenoord - AZ (2-1)",
+                "30-11: Feyenoord - PSV (1-1)",
+                "26-11: FC Twente - Feyenoord (0-2)"
+            )
         )
     }
 }
@@ -198,7 +232,8 @@ fun PredictionCardLowConfidencePreview() {
             winner = "PSV",
             confidenceScore = 45,
             riskLevel = com.Lyno.matchmindai.domain.model.MatchPrediction.RiskLevel.HIGH,
-            reasoning = "Beide teams zijn in goede vorm. PSV heeft een licht voordeel door recente overwinningen, maar statistieken wijzen op een gelijkspel."
+            reasoning = "Beide teams zijn in goede vorm. PSV heeft een licht voordeel door recente overwinningen, maar statistieken wijzen op een gelijkspel.",
+            recentMatches = emptyList()
         )
     }
 }
