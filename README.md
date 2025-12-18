@@ -51,6 +51,12 @@ MatchMind AI is an advanced Android application that revolutionizes football mat
 - **Risk Assessment**: Clear risk indicators and probability calculations
 - **Educational Content**: Learning resources for betting newcomers
 
+### 🔍 **Tavily Search Integration**
+- **Real-time Web Search**: Access to up-to-date news, injuries, transfers, and expert analysis
+- **Smart Query Routing**: Automatically determines when to use Tavily vs. official APIs
+- **Multi-focus Search**: Supports 'news' (injuries/lineups), 'stats' (scores/standings), 'general' (mixed results)
+- **Context-Aware Analysis**: Combines hard API data with soft news context for comprehensive predictions
+
 ## 📸 Screenshots
 
 <div align="center">
@@ -195,6 +201,7 @@ User configuration and security:
 3. **API Keys** (configured in app Settings screen):
    - DeepSeek API key
    - API-Sports key
+   - Tavily API key (for real-time web search)
 
 ### **Quick Start**
 ```bash
@@ -212,9 +219,11 @@ git clone https://github.com/Farmeobaasje/MatchMind.git
 MatchMind AI uses **user-managed security** with **NO hardcoded credentials**:
 1. **DeepSeek API**: Enter your key in the app Settings screen (Settings → API Configuration)
 2. **API-Sports**: Also configured in the app Settings screen
-3. **Local Encryption**: All keys stored securely with Android Keystore encryption
-4. **Dynamic Retrieval**: Keys are retrieved from secure storage at runtime
-5. **Graceful Handling**: App handles `MissingApiKeyException` by redirecting to settings
+3. **Tavily API**: Configure your Tavily API key for real-time web search functionality
+4. **Local Encryption**: All keys stored securely with Android Keystore encryption
+5. **Dynamic Retrieval**: Keys are retrieved from secure storage at runtime
+6. **Graceful Handling**: App handles `MissingApiKeyException` by redirecting to settings
+7. **Smart Tool Routing**: AI automatically determines when to use Tavily (news/injuries) vs. official APIs (stats/fixtures)
 
 ### **Build Configuration**
 The project uses modern Gradle features:
@@ -431,6 +440,7 @@ This project is proprietary software. All rights reserved.
 
 ## 📞 Support & Contact
 
+- **Email**: info@profijtprojectstoffering.nl
 - **GitHub Issues**: Bug reports and feature requests
 - **Documentation**: Comprehensive README and code comments
 - **Community**: Football and betting enthusiast community
