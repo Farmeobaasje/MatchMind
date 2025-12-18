@@ -57,45 +57,6 @@ MatchMind AI is an advanced Android application that revolutionizes football mat
 - **Multi-focus Search**: Supports 'news' (injuries/lineups), 'stats' (scores/standings), 'general' (mixed results)
 - **Context-Aware Analysis**: Combines hard API data with soft news context for comprehensive predictions
 
-## 📸 Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="img/dashboard-previeuw.png" width="280" alt="Dashboard Screen">
-        <br>
-        <strong>Dashboard Screen</strong>
-        <br>
-        <em>Smart dashboard with curated feed and live ticker</em>
-      </td>
-      <td align="center">
-        <img src="img/match%20detail-previeuw.png" width="280" alt="Match Detail Screen">
-        <br>
-        <strong>Match Detail Screen</strong>
-        <br>
-        <em>Comprehensive match analysis with predictions</em>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="img/analist-previeuw.png" width="280" alt="Chat/Analyst Screen">
-        <br>
-        <strong>Chat/Analyst Screen</strong>
-        <br>
-        <em>AI-powered chat interface with widgets</em>
-      </td>
-      <td align="center">
-        <img src="img/previeuw-analist.png" width="280" alt="Advanced Analysis">
-        <br>
-        <strong>Advanced Analysis</strong>
-        <br>
-        <em>Prophet Module for deep match analysis</em>
-      </td>
-    </tr>
-  </table>
-</div>
-
 ## 🏗️ Technical Architecture
 
 ### Clean Architecture Implementation
