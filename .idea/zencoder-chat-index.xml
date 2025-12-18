@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ai.zencoder.plugin.chat.index">
-    <option name="chatMetadata" value="{&quot;a1062ded-e118-47dc-8493-9fba11047aea&quot;:{&quot;id&quot;:&quot;a1062ded-e118-47dc-8493-9fba11047aea&quot;,&quot;title&quot;:&quot;MatchMind Launcher Icon&quot;,&quot;createdAt&quot;:1766012448328,&quot;updatedAt&quot;:1766012490242,&quot;isAgent&quot;:true,&quot;isNameGenerated&quot;:true,&quot;messageCount&quot;:11,&quot;lastMessagePreview&quot;:&quot;Right, I'm on Windows and using cmd shell, not bash. Let me use the correct Windows commands.&quot;}}" />
-  </component>
-</project>

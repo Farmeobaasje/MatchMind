@@ -53,21 +53,42 @@ MatchMind AI is an advanced Android application that revolutionizes football mat
 
 ## 📸 Screenshots
 
-### Dashboard Screen
-![Dashboard Preview](img/dashboard-previeuw.png)
-*Smart dashboard with curated feed, hero match highlighting, and live ticker*
-
-### Match Detail Screen  
-![Match Detail Preview](img/match%20detail-previeuw.png)
-*Comprehensive match analysis with predictions, statistics, and event timeline*
-
-### Chat/Analyst Screen
-![Analyst Preview](img/analist-previeuw.png)
-*AI-powered chat interface with interactive widgets and suggested actions*
-
-### Advanced Analysis
-![Advanced Analysis Preview](img/previeuw-analist.png)
-*Prophet Module for deep match analysis combining stats and news context*
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="img/dashboard-previeuw.png" width="280" alt="Dashboard Screen">
+        <br>
+        <strong>Dashboard Screen</strong>
+        <br>
+        <em>Smart dashboard with curated feed and live ticker</em>
+      </td>
+      <td align="center">
+        <img src="img/match%20detail-previeuw.png" width="280" alt="Match Detail Screen">
+        <br>
+        <strong>Match Detail Screen</strong>
+        <br>
+        <em>Comprehensive match analysis with predictions</em>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="img/analist-previeuw.png" width="280" alt="Chat/Analyst Screen">
+        <br>
+        <strong>Chat/Analyst Screen</strong>
+        <br>
+        <em>AI-powered chat interface with widgets</em>
+      </td>
+      <td align="center">
+        <img src="img/previeuw-analist.png" width="280" alt="Advanced Analysis">
+        <br>
+        <strong>Advanced Analysis</strong>
+        <br>
+        <em>Prophet Module for deep match analysis</em>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## 🏗️ Technical Architecture
 
@@ -171,9 +192,9 @@ User configuration and security:
 ### **Prerequisites**
 1. **Android Studio** (Latest stable version)
 2. **JDK 11** or higher
-3. **API Keys**:
-   - DeepSeek API key (user-provided via app settings)
-   - API-Sports key (configured in local.properties)
+3. **API Keys** (configured in app Settings screen):
+   - DeepSeek API key
+   - API-Sports key
 
 ### **Quick Start**
 ```bash
@@ -181,19 +202,19 @@ User configuration and security:
 git clone https://github.com/Farmeobaasje/MatchMind.git
 
 # Open in Android Studio
-# Configure API keys in local.properties:
-# API_SPORTS_KEY="your_api_sports_key_here"
-
-# Build and run
+# Build and run the app
 ./gradlew assembleDebug
+
+# Configure API keys in the app Settings screen after first launch
 ```
 
 ### **API Configuration**
-MatchMind AI uses **user-managed security**:
-1. **DeepSeek API**: Enter your key in the Settings screen
-2. **API-Sports**: Configure in `local.properties` file
-3. **Local Encryption**: All keys stored with Android encryption
-4. **No Hardcoded Credentials**: Security-first approach
+MatchMind AI uses **user-managed security** with **NO hardcoded credentials**:
+1. **DeepSeek API**: Enter your key in the app Settings screen (Settings → API Configuration)
+2. **API-Sports**: Also configured in the app Settings screen
+3. **Local Encryption**: All keys stored securely with Android Keystore encryption
+4. **Dynamic Retrieval**: Keys are retrieved from secure storage at runtime
+5. **Graceful Handling**: App handles `MissingApiKeyException` by redirecting to settings
 
 ### **Build Configuration**
 The project uses modern Gradle features:
@@ -392,8 +413,8 @@ MatchMindAI/
 ### **Development Setup**
 1. Fork the repository
 2. Clone your fork locally
-3. Set up API keys in `local.properties`
-4. Build and run the app
+3. Build and run the app
+4. Configure API keys in the app Settings screen after first launch
 5. Create a feature branch
 6. Implement changes with tests
 7. Submit a pull request
