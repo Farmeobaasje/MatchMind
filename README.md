@@ -1,419 +1,419 @@
 # MatchMind AI 🧠⚽
 
-**Smart Football Predictions Powered by DeepSeek AI** - A cyber-minimalist Android app that combines live football data with advanced AI analysis for accurate match predictions and betting insights.
+**Slimme Voetbalvoorspellingen Aangedreven door DeepSeek AI** - Een cyber-minimalistische Android app die live voetbaldata combineert met geavanceerde AI-analyse voor accurate wedstrijdvoorspellingen en betting insights.
 
-## 🎯 Overview
+[![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://www.android.com)
+[![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
+[![Clean Architecture](https://img.shields.io/badge/Clean%20Architecture-6DB33F?style=for-the-badge&logo=architecture&logoColor=white)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
 
-MatchMind AI is an advanced Android application that revolutionizes football match analysis by combining real-time sports data with cutting-edge AI technology. Built with Clean Architecture and modern Android development practices, it provides users with intelligent predictions, live match tracking, and beginner-friendly betting insights.
+## 📋 Inhoudsopgave
+- [🎯 Overzicht](#-overzicht)
+- [🚀 Kernfunctionaliteiten](#-kernfunctionaliteiten)
+- [🏗️ Technische Architectuur](#️-technische-architectuur)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📱 Schermen & Gebruikersflow](#-schermen--gebruikersflow)
+- [🔧 Installatie & Setup](#-installatie--setup)
+- [🔐 API Configuratie](#-api-configuratie)
+- [📊 Projectstructuur](#-projectstructuur)
+- [🎨 Design Systeem](#-design-systeem)
+- [🧠 AI Integratie](#-ai-integratie)
+- [📈 Prestatieoptimalisatie](#-prestatieoptimalisatie)
+- [🔒 Beveiliging](#-beveiliging)
+- [🤝 Bijdragen](#-bijdragen)
+- [📞 Support & Contact](#-support--contact)
 
-### 🏆 Key Highlights
-- **AI-Powered Predictions**: DeepSeek AI analyzes statistics, team form, and news context
-- **Live Data Integration**: Real-time connection to API-Sports for fixtures, standings, and odds
-- **Cyber-Minimalist Design**: Futuristic dark-mode UI with neon green accents
-- **Smart Match Curation**: Intelligent feed prioritizes "must-watch" games
-- **User-Managed Security**: API keys stored locally with encryption
+## 🎯 Overzicht
 
-## 🚀 Core Features
+MatchMind AI is een geavanceerde Android applicatie die voetbalwedstrijdanalyse revolutioneert door real-time sportdata te combineren met cutting-edge AI technologie. Gebouwd met Clean Architecture en moderne Android development practices, biedt het gebruikers intelligente voorspellingen, live wedstrijdtracking en beginner-vriendelijke betting insights.
 
-### 🤖 **AI Prediction Engine**
-- **DeepSeek Integration**: Advanced AI analysis using DeepSeek's latest models
-- **Multi-Source Analysis**: Combines hard statistics with soft news context
-- **Prophet Module**: Generative UI system for interactive match analysis
-- **Real-time Updates**: Live predictions as match conditions change
+### 🏆 Hoogtepunten
+- **AI-Gestuurde Voorspellingen**: DeepSeek AI analyseert statistieken, teamvorm en nieuwscontext
+- **Live Data Integratie**: Real-time verbinding met API-Sports voor wedstrijden, standen en odds
+- **Cyber-Minimalistisch Design**: Futuristische dark-mode UI met neon groene accenten
+- **Slimme Wedstrijdcuratie**: Intelligente feed prioriteert "must-watch" wedstrijden
+- **Gebruikersbeheerde Beveiliging**: API keys lokaal opgeslagen met encryptie
 
-### 📊 **Live Football Data**
-- **API-Sports Integration**: Comprehensive football database with 900+ leagues
-- **Real-time Fixtures**: Live scores, match status, and event timelines
-- **Team Statistics**: Detailed team performance metrics and head-to-head data
-- **Injury Reports**: Player availability and injury status updates
+## 🚀 Kernfunctionaliteiten
 
-### 🎨 **Cyber-Minimalist UI**
-- **Dark Mode First**: Optimized for low-light viewing
-- **Neon Green Accents**: High-contrast design for data visualization
-- **Glassmorphic Elements**: Modern UI with depth and transparency effects
-- **Responsive Design**: Works seamlessly across all Android devices
+### 🤖 **AI Voorspellingsmotor**
+- **DeepSeek Integratie**: Geavanceerde AI-analyse met DeepSeek's nieuwste modellen
+- **Multi-Bron Analyse**: Combineert harde statistieken met zachte nieuwscontext
+- **Profeet Module**: Generatieve UI systeem voor interactieve wedstrijdanalyse
+- **Real-time Updates**: Live voorspellingen naarmate wedstrijdomstandigheden veranderen
 
-### 📱 **Smart Dashboard**
-- **Curated Feed**: AI-powered match prioritization based on excitement scores
-- **Hero Match Highlighting**: Featured match with detailed analysis
-- **Live Ticker**: Real-time updates for ongoing matches
-- **League Categorization**: Organized by competition and importance
+### 📊 **Live Voetbaldata**
+- **API-Sports Integratie**: Uitgebreide voetbaldatabase met 900+ competities
+- **Real-time Wedstrijden**: Live scores, wedstrijdstatus en event tijdlijnen
+- **Teamstatistieken**: Gedetailleerde team prestatiemetrics en head-to-head data
+- **Blessurerapporten**: Speler beschikbaarheid en blessurestatus updates
 
-### 💬 **Interactive Chat Interface**
-- **AI Conversation**: Natural language interaction with football expert AI
-- **Widget-Based Responses**: Interactive cards for predictions, odds, and match info
-- **Suggested Actions**: Context-aware follow-up questions
-- **Session Management**: Persistent chat history and context retention
+### 🎨 **Cyber-Minimalistische UI**
+- **Dark Mode First**: Geoptimaliseerd voor low-light viewing
+- **Neon Groene Accenten**: Hoog contrast design voor data visualisatie
+- **Glassmorfische Elementen**: Moderne UI met diepte en transparantie effecten
+- **Responsive Design**: Werkt naadloos op alle Android devices
+
+### 📱 **Slim Dashboard**
+- **Gecureerde Feed**: AI-gestuurde wedstrijdprioritering op basis van excitement scores
+- **Hero Wedstrijd Highlighting**: Uitgelichte wedstrijd met gedetailleerde analyse
+- **Live Ticker**: Real-time updates voor lopende wedstrijden
+- **Competitie Categorisatie**: Georganiseerd op competitie en belangrijkheid
+
+### 💬 **Interactieve Chat Interface**
+- **AI Conversatie**: Natuurlijke taal interactie met voetbal expert AI
+- **Widget-Gebaseerde Antwoorden**: Interactieve cards voor voorspellingen, odds en wedstrijdinfo
+- **Voorgestelde Acties**: Context-aware follow-up vragen
+- **Sessie Management**: Persistente chat geschiedenis en context retentie
 
 ### 🎰 **Betting Analytics**
-- **Beginner-Friendly Odds**: Simplified betting insights with safety ratings
-- **Value Bet Identification**: AI-powered value detection in betting markets
-- **Risk Assessment**: Clear risk indicators and probability calculations
-- **Educational Content**: Learning resources for betting newcomers
+- **Beginner-Vriendelijke Odds**: Vereenvoudigde betting insights met veiligheidsratings
+- **Value Bet Identificatie**: AI-gestuurde value detectie in betting markets
+- **Risico Assessment**: Duidelijke risico indicatoren en kansberekeningen
+- **Educatieve Content**: Leermiddelen voor betting nieuwkomers
 
-### 🔍 **Tavily Search Integration**
-- **Real-time Web Search**: Access to up-to-date news, injuries, transfers, and expert analysis
-- **Smart Query Routing**: Automatically determines when to use Tavily vs. official APIs
-- **Multi-focus Search**: Supports 'news' (injuries/lineups), 'stats' (scores/standings), 'general' (mixed results)
-- **Context-Aware Analysis**: Combines hard API data with soft news context for comprehensive predictions
+### 🔍 **Tavily Search Integratie**
+- **Real-time Web Search**: Toegang tot up-to-date nieuws, blessures, transfers en expert analyses
+- **Slimme Query Routing**: Bepaalt automatisch wanneer Tavily vs. officiële APIs gebruikt worden
+- **Multi-focus Search**: Ondersteunt 'news' (blessures/opstellingen), 'stats' (scores/stand), 'general' (gemengde resultaten)
+- **Context-Aware Analyse**: Combineert harde API data met zachte nieuwscontext voor uitgebreide voorspellingen
 
-## 📸 Screenshots
+## 🏗️ Technische Architectuur
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABmFJREFUeJzt3bFy2zgYgOEvd/8H6Q+gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALoD6A6gO4DuALo
-
-### Clean Architecture Implementation
-MatchMind AI follows strict **Clean Architecture** principles with clear separation of concerns:
+MatchMind AI volgt strikte **Clean Architecture** principes met duidelijke scheiding van concerns:
 
 ```
-Presentation Layer (UI) → Domain Layer (Business Logic) → Data Layer (Network/Persistence)
+Presentatie Laag (UI) → Domein Laag (Business Logic) → Data Laag (Network/Persistence)
 ```
 
-### Layer Responsibilities
+### Laag Verantwoordelijkheden
 
-#### **Presentation Layer** (`presentation/`)
-- **Jetpack Compose UI**: 100% declarative UI with Material Design 3
-- **ViewModel Pattern**: State management with lifecycle awareness
-- **Navigation**: Single Activity Architecture with Compose Navigation
-- **Theming**: Custom cyber-minimalist theme system
+#### **Presentatie Laag** (`presentation/`)
+- **Jetpack Compose UI**: 100% declaratieve UI met Material Design 3
+- **ViewModel Pattern**: State management met lifecycle awareness
+- **Navigatie**: Single Activity Architecture met Compose Navigation
+- **Theming**: Custom cyber-minimalistisch thema systeem
 
-#### **Domain Layer** (`domain/`)
-- **Pure Kotlin Business Logic**: No Android dependencies
+#### **Domein Laag** (`domain/`)
+- **Pure Kotlin Business Logic**: Geen Android dependencies
 - **Use Cases**: Single responsibility operations (GetPrediction, GetMatches, etc.)
-- **Repository Interfaces**: Contract definitions for data access
-- **Domain Models**: Core business entities (MatchFixture, Prediction, etc.)
+- **Repository Interfaces**: Contract definities voor data access
+- **Domein Modellen**: Core business entities (MatchFixture, Prediction, etc.)
 
-#### **Data Layer** (`data/`)
-- **Repository Implementations**: Bridge between domain and data sources
-- **Network Services**: Ktor clients for API-Sports and DeepSeek APIs
-- **Local Storage**: Room database for caching and DataStore for preferences
-- **Mappers**: Data transformation between layers
+#### **Data Laag** (`data/`)
+- **Repository Implementaties**: Bridge tussen domein en data bronnen
+- **Network Services**: Ktor clients voor API-Sports en DeepSeek APIs
+- **Local Storage**: Room database voor caching en DataStore voor preferences
+- **Mappers**: Data transformatie tussen lagen
 
-### Key Architectural Patterns
-- **MVVM**: Model-View-ViewModel for UI state management
+### Belangrijke Architectuur Patronen
+- **MVVM**: Model-View-ViewModel voor UI state management
 - **Repository Pattern**: Abstract data access layer
-- **Dependency Injection**: Manual DI with AppContainer
-- **Unidirectional Data Flow**: Predictable state updates
+- **Dependency Injection**: Manual DI met AppContainer
+- **Unidirectional Data Flow**: Voorspelbare state updates
 
 ## 🛠️ Tech Stack
 
 ### **Core Platform**
-- **Language**: Kotlin 1.9+ (Modern Android Development)
+- **Taal**: Kotlin 1.9+ (Modern Android Development)
 - **Min SDK**: 26 (Android 8.0 - 96% device coverage)
 - **Target SDK**: 34 (Android 14)
-- **Build System**: Gradle with Kotlin DSL
+- **Build Systeem**: Gradle met Kotlin DSL
 
-### **UI & Presentation**
-- **Jetpack Compose**: 100% declarative UI toolkit
-- **Material Design 3**: Modern design system with dark mode support
-- **Coil**: Image loading with SVG support and caching
-- **Navigation Compose**: Type-safe navigation with deep linking
+### **UI & Presentatie**
+- **Jetpack Compose**: 100% declaratieve UI toolkit
+- **Material Design 3**: Modern design systeem met dark mode support
+- **Coil**: Image loading met SVG support en caching
+- **Navigation Compose**: Type-safe navigation met deep linking
 
 ### **Networking & Data**
-- **Ktor Client**: Modern HTTP client with coroutine support
+- **Ktor Client**: Moderne HTTP client met coroutine support
 - **Kotlinx Serialization**: Type-safe JSON parsing
-- **Room Database**: Local persistence with SQLite
-- **DataStore Preferences**: Secure key-value storage
+- **Room Database**: Lokale persistentie met SQLite
+- **DataStore Preferences**: Veilige key-value storage
 - **WorkManager**: Background task scheduling
 
 ### **AI & Machine Learning**
-- **DeepSeek API**: Advanced language model for football analysis
-- **Custom Prompt Engineering**: Domain-specific AI instructions
-- **JSON Response Formatting**: Structured AI outputs for UI rendering
+- **DeepSeek API**: Geavanceerd language model voor voetbalanalyse
+- **Custom Prompt Engineering**: Domein-specifieke AI instructies
+- **JSON Response Formatting**: Gestructureerde AI outputs voor UI rendering
 
 ### **Development Tools**
-- **Android Studio**: Official IDE with Compose previews
-- **Git**: Version control with conventional commits
-- **Gradle BOM**: Bill of Materials for dependency management
+- **Android Studio**: Officiële IDE met Compose previews
+- **Git**: Version control met conventional commits
+- **Gradle BOM**: Bill of Materials voor dependency management
 
-## 📱 Screens & User Flow
+## 📱 Schermen & Gebruikersflow
 
-### **Dashboard Screen**
-The main hub featuring:
-- **Hero Match Card**: Featured match with detailed preview
-- **Live Ticker**: Horizontal scroll of ongoing matches
-- **League Sections**: Collapsible match lists by competition
-- **Smart Prioritization**: AI-curated match ordering
+### **Dashboard Scherm**
+De centrale hub met:
+- **Hero Wedstrijd Card**: Uitgelichte wedstrijd met gedetailleerde preview
+- **Live Ticker**: Horizontale scroll van lopende wedstrijden
+- **Competitie Secties**: Inklapbare wedstrijdlijsten per competitie
+- **Slimme Prioritering**: AI-gestuurde wedstrijd ordening
 
-### **Match Detail Screen**
-Comprehensive match analysis including:
-- **Team Lineups**: Starting XI and substitutes
-- **Head-to-Head Stats**: Historical performance comparison
-- **Prediction Widget**: Win probability bars and AI advice
-- **Event Timeline**: Minute-by-minute match events
-- **Injury Reports**: Player availability status
+### **Wedstrijd Detail Scherm**
+Uitgebreide wedstrijdanalyse inclusief:
+- **Team Opstellingen**: Starting XI en wisselspelers
+- **Head-to-Head Stats**: Historische prestatie vergelijking
+- **Voorspellings Widget**: Win kans balken en AI advies
+- **Event Tijdlijn**: Minuut-voor-minuut wedstrijd events
+- **Blessurerapporten**: Speler beschikbaarheid status
 
-### **Chat Screen**
-Interactive AI conversation interface:
-- **Message Bubbles**: Chat history with AI responses
-- **Widget Responses**: Interactive prediction and odds cards
-- **Suggested Actions**: Quick follow-up question buttons
-- **Prophet Module**: Advanced analysis toggle
+### **Chat Scherm**
+Interactieve AI conversatie interface:
+- **Message Bubbles**: Chat geschiedenis met AI antwoorden
+- **Widget Antwoorden**: Interactieve voorspelling en odds cards
+- **Voorgestelde Acties**: Snelle follow-up vraag knoppen
+- **Profeet Module**: Geavanceerde analyse toggle
 
-### **Settings Screen**
-User configuration and security:
-- **API Key Management**: Secure DeepSeek API key storage
-- **Theme Preferences**: Dark/light mode toggle
-- **Notification Settings**: Match alert configuration
-- **Data Management**: Cache clearing and reset options
+### **Settings Scherm**
+Gebruikersconfiguratie en beveiliging:
+- **API Key Management**: Veilige DeepSeek API key opslag
+- **Thema Voorkeuren**: Dark/light mode toggle
+- **Notificatie Instellingen**: Wedstrijd alert configuratie
+- **Data Management**: Cache clearing en reset opties
 
-## 🔧 Installation & Setup
+## 🔧 Installatie & Setup
 
-### **Prerequisites**
-1. **Android Studio** (Latest stable version)
-2. **JDK 11** or higher
-3. **API Keys** (configured in app Settings screen):
+### **Vereisten**
+1. **Android Studio** (Laatste stabiele versie)
+2. **JDK 11** of hoger
+3. **API Keys** (geconfigureerd in app Settings scherm):
    - DeepSeek API key
    - API-Sports key
-   - Tavily API key (for real-time web search)
+   - Tavily API key (voor real-time web search functionaliteit)
 
 ### **Quick Start**
 ```bash
-# Clone the repository
+# Clone de repository
 git clone https://github.com/Farmeobaasje/MatchMind.git
 
 # Open in Android Studio
-# Build and run the app
+# Build en run de app
 ./gradlew assembleDebug
 
-# Configure API keys in the app Settings screen after first launch
+# Configureer API keys in het app Settings scherm na eerste launch
 ```
 
-### **API Configuration**
-MatchMind AI uses **user-managed security** with **NO hardcoded credentials**:
-1. **DeepSeek API**: Enter your key in the app Settings screen (Settings → API Configuration)
-2. **API-Sports**: Also configured in the app Settings screen
-3. **Tavily API**: Configure your Tavily API key for real-time web search functionality
-4. **Local Encryption**: All keys stored securely with Android Keystore encryption
-5. **Dynamic Retrieval**: Keys are retrieved from secure storage at runtime
-6. **Graceful Handling**: App handles `MissingApiKeyException` by redirecting to settings
-7. **Smart Tool Routing**: AI automatically determines when to use Tavily (news/injuries) vs. official APIs (stats/fixtures)
+### **Build Configuratie**
+Het project gebruikt moderne Gradle features:
+- **Version Catalogs**: Gecentraliseerde dependency management in `libs.versions.toml`
+- **Build Features**: Compose, BuildConfig, en viewBinding enabled
+- **ProGuard Rules**: Geoptimaliseerde release builds met code shrinking
 
-### **Build Configuration**
-The project uses modern Gradle features:
-- **Version Catalogs**: Centralized dependency management in `libs.versions.toml`
-- **Build Features**: Compose, BuildConfig, and viewBinding enabled
-- **ProGuard Rules**: Optimized release builds with code shrinking
+## 🔐 API Configuratie
 
-## 📊 Project Structure
+MatchMind AI gebruikt **gebruikersbeheerde beveiliging** met **GEEN hardcoded credentials**:
+
+1. **DeepSeek API**: Voer je key in het app Settings scherm in (Settings → API Configuration)
+2. **API-Sports**: Ook geconfigureerd in het app Settings scherm
+3. **Tavily API**: Configureer je Tavily API key voor real-time web search functionaliteit
+4. **Lokale Encryptie**: Alle keys veilig opgeslagen met Android Keystore encryptie
+5. **Dynamische Retrieval**: Keys worden opgehaald uit veilige opslag tijdens runtime
+6. **Graceful Handling**: App handelt `MissingApiKeyException` af door te redirecten naar settings
+7. **Slimme Tool Routing**: AI bepaalt automatisch wanneer Tavily (nieuws/blessures) vs. officiële APIs (stats/wedstrijden) gebruikt worden
+
+## 📊 Projectstructuur
 
 ```
 MatchMindAI/
 ├── app/
 │   ├── src/main/
 │   │   ├── java/com/Lyno/matchmindai/
-│   │   │   ├── data/           # Data layer implementations
-│   │   │   │   ├── ai/         # AI integration and prompts
+│   │   │   ├── data/           # Data layer implementaties
+│   │   │   │   ├── ai/         # AI integratie en prompts
 │   │   │   │   ├── dto/        # Data transfer objects
-│   │   │   │   ├── local/      # Database and storage
-│   │   │   │   ├── mapper/     # Data transformation
+│   │   │   │   ├── local/      # Database en storage
+│   │   │   │   ├── mapper/     # Data transformatie
 │   │   │   │   ├── remote/     # Network clients
-│   │   │   │   └── repository/ # Repository implementations
+│   │   │   │   └── repository/ # Repository implementaties
 │   │   │   ├── domain/         # Business logic layer
-│   │   │   │   ├── model/      # Domain entities
+│   │   │   │   ├── model/      # Domein entities
 │   │   │   │   ├── repository/ # Repository interfaces
-│   │   │   │   ├── service/    # Domain services
+│   │   │   │   ├── service/    # Domein services
 │   │   │   │   └── usecase/    # Business use cases
 │   │   │   └── presentation/   # UI layer
-│   │   │       ├── components/ # Reusable UI components
-│   │   │       ├── screens/    # Feature screens
+│   │   │       ├── components/ # Herbruikbare UI components
+│   │   │       ├── screens/    # Feature schermen
 │   │   │       ├── viewmodel/  # ViewModels
 │   │   │       └── widgets/    # Android widgets
 │   │   └── res/                # Resources
 │   │       ├── drawable/       # Vector assets
 │   │       ├── layout/         # XML layouts (widgets)
 │   │       ├── values/         # Colors, strings, themes
-│   │       └── xml/            # Configuration files
-├── gradle/                     # Gradle configuration
-└── build.gradle.kts           # Root build configuration
+│   │       └── xml/            # Configuratie files
+├── gradle/                     # Gradle configuratie
+└── build.gradle.kts           # Root build configuratie
 ```
 
-## 🎨 Design System
+## 🎨 Design Systeem
 
-### **Color Palette**
-- **Background**: `#0F1115` (Deep space black with blue undertones)
-- **Surface**: `#1E222A` (Elevated card backgrounds)
-- **Primary**: `#00E676` (Neon green for actions and highlights)
-- **Secondary**: `#2979FF` (Cyber blue for information)
-- **Text Primary**: `#FFFFFF` (Pure white for headers)
-- **Text Secondary**: `#B0BEC5` (Light gray for body text)
+### **Kleurpalet**
+- **Achtergrond**: `#0F1115` (Diep space zwart met blauwe ondertonen)
+- **Oppervlak**: `#1E222A` (Verhoogde card achtergronden)
+- **Primair**: `#00E676` (Neon groen voor acties en highlights)
+- **Secundair**: `#2979FF` (Cyber blauw voor informatie)
+- **Tekst Primair**: `#FFFFFF` (Pure wit voor headers)
+- **Tekst Secundair**: `#B0BEC5` (Licht grijs voor body tekst)
 
-### **Typography**
-- **Headlines**: Inter Bold/Black for impact
-- **Data Display**: JetBrains Mono for technical information
-- **Body Text**: Inter Regular with 1.5 line height
-- **Labels**: Inter Medium with tracking
+### **Typografie**
+- **Headlines**: Inter Bold/Black voor impact
+- **Data Display**: JetBrains Mono voor technische informatie
+- **Body Text**: Inter Regular met 1.5 line height
+- **Labels**: Inter Medium met tracking
 
-### **Components**
-- **Glass Cards**: Frosted background with blur effects
-- **Status Badges**: Color-coded match status indicators
-- **Progress Bars**: Animated probability visualizations
-- **Input Fields**: Cyber-style text inputs with glow effects
+### **Componenten**
+- **Glass Cards**: Frosted achtergrond met blur effecten
+- **Status Badges**: Kleur-gecodeerde wedstrijd status indicatoren
+- **Progress Bars**: Geanimeerde kans visualisaties
+- **Input Fields**: Cyber-style text inputs met glow effecten
 
-## 🔄 Data Flow
+## 🧠 AI Integratie
 
-### **Prediction Request Flow**
-1. **User Input**: Team selection or match query
-2. **ViewModel**: Validates input and triggers use case
-3. **Use Case**: Coordinates data fetching and business logic
-4. **Repository**: Fetches data from cache, then network
-5. **AI Processing**: DeepSeek analyzes combined data sources
-6. **Response Parsing**: Structured JSON to domain models
-7. **UI Update**: Interactive widgets and text responses
-
-### **Match Curation Algorithm**
-1. **Data Collection**: Fetch fixtures and standings
-2. **Excitement Scoring**:
-   - Tier 1 Leagues: +1000 points (Premier League, Champions League)
-   - Tier 2 Leagues: +500 points (Serie A, Bundesliga)
-   - Live Matches: +100 points bonus
-   - Top 4 Clash: +30 points for competitive matches
-3. **Priority Sorting**: Descending excitement score
-4. **Feed Assembly**: Hero match + live ticker + categorized lists
-
-## 🧠 AI Integration
-
-### **DeepSeek Configuration**
-- **Model**: `deepseek-chat` (Latest version)
-- **Temperature**: 0.5 (Balanced creativity and consistency)
-- **Response Format**: `{"type": "json_object"}` for structured outputs
-- **System Prompts**: Football domain expertise instructions
+### **DeepSeek Configuratie**
+- **Model**: `deepseek-chat` (Laatste versie)
+- **Temperature**: 0.5 (Gebalanceerde creativiteit en consistentie)
+- **Response Format**: `{"type": "json_object"}` voor gestructureerde outputs
+- **System Prompts**: Voetbal domein expertise instructies
 
 ### **Prompt Engineering**
-- **Anchor & Adjust Strategy**:
-  - **Anchor**: Hard facts from API-Sports statistics
-  - **Adjust**: News context and recent developments
-  - **Analysis**: Conflict identification between stats and news
-  - **Risk Factor**: "Killer scenario" identification
+- **Anchor & Adjust Strategie**:
+  - **Anchor**: Harde feiten van API-Sports statistieken
+  - **Adjust**: Nieuws context en recente ontwikkelingen
+  - **Analyse**: Conflict identificatie tussen stats en nieuws
+  - **Risico Factor**: "Killer scenario" identificatie
 
 ### **Response Types**
-- **Text Response**: Standard chat bubble with analysis
-- **Prediction Widget**: Interactive win probability visualization
-- **Match Widget**: Embedded match card with live data
-- **Odds Widget**: Betting insights with value ratings
+- **Tekst Response**: Standaard chat bubble met analyse
+- **Voorspellings Widget**: Interactieve win kans visualisatie
+- **Wedstrijd Widget**: Ingebedde wedstrijd card met live data
+- **Odds Widget**: Betting insights met value ratings
 
-## 📈 Performance Optimization
+## 📈 Prestatieoptimalisatie
 
-### **Caching Strategy**
-- **Room Database**: Local cache with TTL (Time To Live)
-- **Memory Cache**: In-memory store for frequent access
-- **Network Cache**: HTTP cache headers utilization
-- **Image Cache**: Coil disk and memory caching
+### **Caching Strategie**
+- **Room Database**: Lokale cache met TTL (Time To Live)
+- **Memory Cache**: In-memory store voor frequente access
+- **Network Cache**: HTTP cache headers utilizatie
+- **Match Cache Manager**: Intelligente cache invalidatie op basis van wedstrijdstatus
 
-### **Network Optimization**
-- **Connection Pooling**: Reusable HTTP connections
-- **Request Batching**: Parallel API calls where possible
-- **Rate Limiting**: Smart retry with exponential backoff
-- **Payload Compression**: Reduced data transfer size
+### **Image Loading**
+- **Coil Integration**: Asynchrone image loading met memory caching
+- **SVG Support**: Vector graphics voor scherpe iconen op alle resoluties
+- **Placeholder System**: Loading states tijdens data fetch
+
+### **Network Optimalisatie**
+- **Connection Pooling**: Hergebruik van HTTP connections
+- **Request Batching**: Gecombineerde API calls waar mogelijk
+- **Retry Logic**: Exponential backoff voor failed requests
+- **Offline Support**: Graceful degradation bij netwerkverlies
 
 ### **UI Performance**
-- **Lazy Loading**: Compose LazyColumn/LazyRow for lists
-- **Image Optimization**: WebP format with appropriate sizing
-- **State Hoisting**: Minimal recomposition scope
-- **Background Processing**: Coroutine dispatchers for heavy work
+- **Lazy Loading**: Alleen renderen wat zichtbaar is
+- **Composition Local**: Minimale recomposition door state management
+- **Debounced Input**: Vertraagde verwerking voor snelle user input
+- **Background Processing**: Heavy operations op background threads
 
-## 🔒 Security Implementation
+## 🔒 Beveiliging
 
 ### **API Key Management**
-- **User-Provided Keys**: No hardcoded credentials
-- **DataStore Encryption**: Android Keystore integration
-- **Secure Transmission**: HTTPS with certificate pinning
-- **Key Rotation**: Support for periodic key updates
+- **Geen Hardcoded Credentials**: Alle keys worden door gebruiker ingevoerd
+- **Android Keystore**: Hardware-backed encryptie voor API keys
+- **Encrypted DataStore**: Veilige opslag van gevoelige data
+- **Runtime Retrieval**: Keys worden alleen opgehaald wanneer nodig
 
-### **Data Protection**
-- **Local Encryption**: Sensitive data encryption at rest
-- **Secure Preferences**: Encrypted key-value storage
-- **Database Encryption**: Room with SQLCipher support
-- **Memory Safety**: Secure memory handling practices
+### **Network Security**
+- **HTTPS Only**: Alle API calls via beveiligde verbindingen
+- **Certificate Pinning**: Extra beveiliging tegen MITM attacks
+- **Request Signing**: Authenticatie van API requests
+- **Rate Limiting**: Bescherming tegen API abuse
 
-## 🧪 Testing Strategy
+### **Data Privacy**
+- **Lokale Opslag**: Persoonlijke data blijft op device
+- **Geen Tracking**: Geen analytics of user tracking
+- **Transparante Permissies**: Minimale Android permissions
+- **Data Minimization**: Alleen noodzakelijke data verzameld
 
-### **Unit Testing**
-- **Repository Tests**: Mock network and database layers
-- **ViewModel Tests**: State management and business logic
-- **Use Case Tests**: Single responsibility validation
-- **Mapper Tests**: Data transformation correctness
+### **Code Security**
+- **ProGuard/R8**: Code obfuscation voor release builds
+- **Security Headers**: HTTP headers voor extra bescherming
+- **Input Validation**: Sanitization van alle user input
+- **Error Handling**: Geen gevoelige informatie in error messages
 
-### **Integration Testing**
-- **API Integration**: Real network call validation
-- **Database Tests**: Room migration and query verification
-- **UI Integration**: Compose UI testing with fake data
-- **End-to-End**: Critical user flow validation
+## 🤝 Bijdragen
 
-### **Test Tools**
-- **JUnit 5**: Modern testing framework
-- **MockK**: Kotlin-friendly mocking library
-- **Coroutines Test**: Time manipulation and dispatchers
-- **Compose Testing**: UI component testing utilities
-
-## 📚 Development Guidelines
-
-### **Coding Standards**
-- **Kotlin First**: Prefer Kotlin idioms over Java patterns
-- **Immutability**: Use `val` and immutable collections
-- **Null Safety**: Leverage Kotlin's null safety features
-- **Extension Functions**: Domain-specific utilities
-
-### **Architecture Compliance**
-- **Layer Separation**: Strict boundaries between layers
-- **Dependency Direction**: Outer layers depend on inner layers
-- **Interface Segregation**: Small, focused interfaces
-- **Single Responsibility**: Each class has one reason to change
-
-### **Error Handling**
-- **Result Wrappers**: `Result<T>` for operations that can fail
-- **Custom Exceptions**: Domain-specific error types
-- **User-Friendly Messages**: Translated error messages
-- **Graceful Degradation**: Fallback mechanisms
-
-## 🚀 Deployment
-
-### **Release Process**
-1. **Version Bump**: Update versionCode and versionName
-2. **Code Signing**: Configure signing keys in CI/CD
-3. **ProGuard Optimization**: Code shrinking and obfuscation
-4. **Play Store Listing**: Screenshots, descriptions, and metadata
-5. **Beta Testing**: Internal and external testing tracks
-
-### **Continuous Integration**
-- **GitHub Actions**: Automated build and test pipeline
-- **Code Quality**: Static analysis and linting
-- **Dependency Updates**: Security vulnerability scanning
-- **Release Automation**: APK generation and distribution
-
-## 🤝 Contributing
+We verwelkomen bijdragen aan MatchMind AI! Hier zijn enkele richtlijnen:
 
 ### **Development Setup**
-1. Fork the repository
-2. Clone your fork locally
-3. Build and run the app
-4. Configure API keys in the app Settings screen after first launch
-5. Create a feature branch
-6. Implement changes with tests
-7. Submit a pull request
+1. Fork de repository
+2. Clone je fork lokaal
+3. Open in Android Studio
+4. Configureer API keys in het Settings scherm voor testing
+5. Maak een feature branch: `git checkout -b feature/amazing-feature`
 
-### **Code Review Guidelines**
-- **Architecture Compliance**: Follow Clean Architecture principles
-- **Test Coverage**: Include unit tests for new features
-- **Documentation**: Update relevant documentation
-- **Performance**: Consider impact on app performance
+### **Code Guidelines**
+- **Kotlin Style**: Volg officiële Kotlin coding conventions
+- **Clean Architecture**: Behoud de laag scheiding
+- **Compose Best Practices**: Gebruik recomposition-aware code
+- **Testing**: Schrijf unit tests voor nieuwe functionaliteit
+- **Documentatie**: Update README en code comments
 
-## 📄 License
+### **Pull Request Proces**
+1. Update de README.md met details van wijzigingen
+2. Voeg tests toe voor nieuwe functionaliteit
+3. Zorg dat alle tests slagen
+4. Maak een Pull Request met duidelijke beschrijving
+5. Link eventuele gerelateerde issues
 
-This project is proprietary software. All rights reserved.
+### **Issue Reporting**
+- Gebruik de GitHub Issues template
+- Beschrijf het probleem duidelijk met stappen om te reproduceren
+- Voeg screenshots toe waar relevant
+- Vermeld Android versie en device type
 
 ## 📞 Support & Contact
 
+### **Technische Support**
 - **Email**: info@profijtprojectstoffering.nl
-- **GitHub Issues**: Bug reports and feature requests
-- **Documentation**: Comprehensive README and code comments
-- **Community**: Football and betting enthusiast community
+- **Response Time**: Binnen 24-48 uur op werkdagen
+- **Issue Tracking**: GitHub Issues voor bug reports en feature requests
+
+### **Bedrijfsinformatie**
+- **Project Eigenaar**: Profijt Project Stoffering
+- **Focus**: Innovatieve software oplossingen voor niche markten
+- **Expertise**: Android development, AI integratie, data analytics
+
+### **Documentatie**
+- **Project Docs**: Volledige documentatie in `/docs/` directory
+- **API Documentatie**: Integratie guides voor alle gebruikte APIs
+- **Architectuur Docs**: Gedetailleerde systeem architectuur beschrijvingen
+
+### **Community**
+- **GitHub Discussions**: Voor vragen en ideeën
+- **Feedback Welkom**: We waarderen alle suggesties voor verbetering
+- **Roadmap**: Feature planning beschikbaar op verzoek
 
 ---
 
-**MatchMind AI** - Built with precision for football enthusiasts who appreciate data-driven insights. Combining the art of football with the science of AI to deliver unparalleled match analysis and prediction accuracy.
+## 📄 License
 
-*"Where Data Meets Intuition"*
+MatchMind AI is **proprietary software**. Alle rechten voorbehouden.
+
+- **Copyright**: © 2025 Profijt Project Stoffering
+- **Gebruik**: Alleen voor persoonlijk, niet-commercieel gebruik
+- **Distributie**: Niet toegestaan zonder expliciete toestemming
+- **Modificatie**: Alleen toegestaan voor persoonlijk gebruik
+- **Commercieel Gebruik**: Neem contact op voor licensing opties
+
+**Disclaimer**: MatchMind AI is ontwikkeld voor educatieve en entertainment doeleinden. Wedden op sport kan verslavend zijn en financiële risico's met zich meebrengen. Gebruik altijd verantwoord en binnen je financiële mogelijkheden.
+
+---
+
+<div align="center">
+  <h3>⚡ Gebouwd met passie voor voetbal en technologie ⚡</h3>
+  <p>MatchMind AI combineert de nieuwste AI technologie met real-time sportdata<br>om de ultieme voetbalanalyse ervaring te bieden.</p>
+  
+  <sub>Laatst bijgewerkt: December 2025 | Android Studio | Kotlin | Jetpack Compose</sub>
+</div>
