@@ -17,6 +17,11 @@ local.properties
 # Exclude entire docs directory
 docs/
 
+# Exclude Gradle wrapper files
+gradlew
+gradlew.bat
+gradle/wrapper/
+
 # Exclude other unnecessary files
 *.svg
 *.md
