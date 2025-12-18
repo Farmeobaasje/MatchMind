@@ -14,22 +14,13 @@
 .cxx
 local.properties
 
-# Exclude SVG and MD files in docs directory
-docs/*.svg
-docs/*.md
+# Exclude entire docs directory
+docs/
 
 # Exclude other unnecessary files
 *.svg
 *.md
 !README.md
-!docs/00fasetracker.md
-!docs/01_architecture.md
-!docs/02_tech_stack.md
-!docs/03_ux_ui_design.md
-!docs/04_coding_rules.md
-!docs/05_project_log.md
-!docs/06_prompt_engineering.md
-!docs/07_testing_strategy.md
 
 # Exclude test files and logs
 test_*.py
