@@ -10,8 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,6 +28,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,6 +49,7 @@ import com.Lyno.matchmindai.presentation.components.CyberTextField
 import com.Lyno.matchmindai.presentation.components.PrimaryActionButton
 import com.Lyno.matchmindai.presentation.viewmodel.SettingsViewModel
 import com.Lyno.matchmindai.presentation.viewmodel.getViewModelFactory
+import com.Lyno.matchmindai.presentation.widgets.UsageWidget
 import com.Lyno.matchmindai.ui.theme.MatchMindAITheme
 import com.Lyno.matchmindai.ui.theme.Secondary
 import kotlinx.coroutines.launch
@@ -105,112 +113,430 @@ fun SettingsScreen(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
-        Column(
+        // Cache Confirmation Dialog
+        if (uiState.showCacheConfirmation) {
+            AlertDialog(
+                onDismissRequest = { viewModel.hideCacheConfirmation() },
+                title = {
+                    Text(
+                        text = "Cache Wissen",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                },
+                text = {
+                    Text(
+                        text = "Weet je zeker dat je alle cache wilt wissen? Dit zal alle in-memory cache voor predictions, blessures, odds en wedstrijddetails verwijderen. De volgende API calls zullen verse data ophalen.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = { viewModel.clearAllCache() }
+                    ) {
+                        Text("Ja, wis cache")
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = { viewModel.hideCacheConfirmation() }
+                    ) {
+                        Text("Annuleren")
+                    }
+                }
+            )
+        }
+        
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // API Key Input
-            CyberTextField(
-                value = uiState.apiKey,
-                onValueChange = { viewModel.updateApiKey(it) },
-                label = stringResource(id = com.Lyno.matchmindai.R.string.api_key_label),
-                placeholder = stringResource(id = com.Lyno.matchmindai.R.string.api_key_placeholder),
-                visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
-                isError = uiState.error != null
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Info Text
-            Text(
-                text = stringResource(id = com.Lyno.matchmindai.R.string.api_key_info),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Save Button
-            PrimaryActionButton(
-                text = stringResource(id = com.Lyno.matchmindai.R.string.save_button),
-                onClick = { viewModel.saveApiKey() },
-                isLoading = uiState.isLoading,
-                enabled = uiState.apiKey.isNotBlank()
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Live Data Switch
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            // Phase 4: Control Room Header
+            item {
                 Text(
-                    text = stringResource(id = com.Lyno.matchmindai.R.string.use_live_data_label),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    text = "🎮 Control Room",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 8.dp)
                 )
-                Switch(
-                    checked = uiState.isLiveDataEnabled,
-                    onCheckedChange = { viewModel.toggleLiveData(it) },
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.primary,
-                        checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
-                        uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        uncheckedTrackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
-                    )
+                Text(
+                    text = "Beheer je persoonlijke voetbalervaring",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
                 )
             }
 
-            // Live Data Description
-            Text(
-                text = stringResource(id = com.Lyno.matchmindai.R.string.use_live_data_description),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp)
-            )
+            // Phase 4: Usage Widget (Daily Energy Bar)
+            item {
+                val userPreferences = com.Lyno.matchmindai.domain.model.UserPreferences(
+                    apiCallsRemaining = uiState.apiCallsRemaining,
+                    apiCallsLimit = uiState.apiCallsLimit,
+                    lastRateLimitUpdate = uiState.lastRateLimitUpdate
+                )
+                UsageWidget(
+                    userPreferences = userPreferences,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // DeepSeek Link with clickable text
-            val uriHandler = LocalUriHandler.current
-            val deepSeekUrl = stringResource(id = com.Lyno.matchmindai.R.string.deepseek_url)
-            
-            Text(
-                text = stringResource(id = com.Lyno.matchmindai.R.string.get_api_key_link),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Secondary,
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .clickable {
-                        uriHandler.openUri(deepSeekUrl)
+            // Phase 4: Favorite Team Section
+            item {
+                Text(
+                    text = stringResource(id = com.Lyno.matchmindai.R.string.favorite_team_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp, bottom = 8.dp)
+                )
+                
+                if (uiState.favoriteTeamName != null) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    text = uiState.favoriteTeamName ?: "",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = "ID: ${uiState.favoriteTeamId ?: ""}",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                )
+                            }
+                            TextButton(
+                                onClick = { viewModel.clearFavoriteTeam() }
+                            ) {
+                                Text(text = stringResource(id = com.Lyno.matchmindai.R.string.favorite_team_clear))
+                            }
+                        }
                     }
-            )
+                } else {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = stringResource(id = com.Lyno.matchmindai.R.string.favorite_team_none),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "TODO: Team selectie implementeren",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+                            )
+                        }
+                    }
+                }
+                Text(
+                    text = stringResource(id = com.Lyno.matchmindai.R.string.favorite_team_hint),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp, bottom = 16.dp)
+                )
+            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            // Phase 4: Data Saver Mode
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = stringResource(id = com.Lyno.matchmindai.R.string.data_saver_title),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(id = com.Lyno.matchmindai.R.string.data_saver_description),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
+                    Switch(
+                        checked = uiState.liveDataSaver,
+                        onCheckedChange = { viewModel.toggleDataSaver(it) },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+                            checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+                            uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            uncheckedTrackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
+                        )
+                    )
+                }
+            }
 
-            // DeepSeek URL display
-            Text(
-                text = deepSeekUrl,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            )
+            // Cache Refresh Button
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(
+                            enabled = !uiState.isLoading,
+                            onClick = { viewModel.showCacheConfirmation() }
+                        ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = "🔄 Cache Wissen",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "Wis alle in-memory cache voor verse data",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                                modifier = Modifier.padding(top = 4.dp)
+                            )
+                        }
+                        if (uiState.isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(24.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Cache wissen",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+                Text(
+                    text = "Wis de cache om verse data op te halen bij de volgende API calls",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp, bottom = 16.dp)
+                )
+            }
+
+            // Live Data Switch (Existing)
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = stringResource(id = com.Lyno.matchmindai.R.string.use_live_data_label),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(id = com.Lyno.matchmindai.R.string.use_live_data_description),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
+                    Switch(
+                        checked = uiState.isLiveDataEnabled,
+                        onCheckedChange = { viewModel.toggleLiveData(it) },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = MaterialTheme.colorScheme.primary,
+                            checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+                            uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            uncheckedTrackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
+                        )
+                    )
+                }
+            }
+
+            // API Keys Section Header
+            item {
+                Text(
+                    text = "🔑 API Keys",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 8.dp)
+                )
+                Text(
+                    text = "Configureer je API keys voor volledige functionaliteit",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+            }
+
+            // DeepSeek API Key Input
+            item {
+                CyberTextField(
+                    value = uiState.deepSeekApiKey,
+                    onValueChange = { viewModel.updateDeepSeekApiKey(it) },
+                    label = stringResource(id = com.Lyno.matchmindai.R.string.deepseek_api_key_label),
+                    placeholder = stringResource(id = com.Lyno.matchmindai.R.string.deepseek_api_key_placeholder),
+                    visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                    isError = uiState.error != null
+                )
+            }
+
+            // Tavily API Key Input
+            item {
+                CyberTextField(
+                    value = uiState.tavilyApiKey,
+                    onValueChange = { viewModel.updateTavilyApiKey(it) },
+                    label = stringResource(id = com.Lyno.matchmindai.R.string.tavily_api_key_label),
+                    placeholder = stringResource(id = com.Lyno.matchmindai.R.string.tavily_api_key_placeholder),
+                    visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                    isError = uiState.error != null
+                )
+            }
+
+            // API-Sports (Direct Subscription) Key Input
+            item {
+                CyberTextField(
+                    value = uiState.apiSportsKey,
+                    onValueChange = { viewModel.updateApiSportsKey(it) },
+                    label = "API-Sports Key",
+                    placeholder = "Voer je API-Sports key in",
+                    visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                    isError = uiState.error != null
+                )
+            }
+
+            // Info Text
+            item {
+                Text(
+                    text = stringResource(id = com.Lyno.matchmindai.R.string.api_key_info),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            // Save Button
+            item {
+                PrimaryActionButton(
+                    text = stringResource(id = com.Lyno.matchmindai.R.string.save_button),
+                    onClick = { viewModel.saveApiKeys() },
+                    isLoading = uiState.isLoading,
+                    enabled = uiState.deepSeekApiKey.isNotBlank(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
+                )
+            }
+
+            // API Key Links Section
+            item {
+                val uriHandler = LocalUriHandler.current
+                val deepSeekUrl = stringResource(id = com.Lyno.matchmindai.R.string.deepseek_url)
+                val tavilyUrl = stringResource(id = com.Lyno.matchmindai.R.string.tavily_url)
+                val apiSportsUrl = "https://dashboard.api-football.com"
+                
+                Text(
+                    text = "API Key Links:",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                )
+                
+                // DeepSeek Link
+                Text(
+                    text = "• DeepSeek API Key",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Secondary,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            uriHandler.openUri(deepSeekUrl)
+                        }
+                )
+                
+                // Tavily Link
+                Text(
+                    text = "• Tavily API Key",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Secondary,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            uriHandler.openUri(tavilyUrl)
+                        }
+                )
+                
+                // API-Sports Link
+                Text(
+                    text = "• API-Sports Dashboard",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Secondary,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            uriHandler.openUri(apiSportsUrl)
+                        }
+                )
+            }
         }
     }
 }

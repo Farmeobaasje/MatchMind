@@ -7,26 +7,26 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Cyber-Minimalism Dark Color Scheme
+// Modern AI Dark Color Scheme (Cyber Palette)
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary,
-    secondary = Secondary,
+    primary = PrimaryNeon,
+    secondary = SecondaryPurple,
     tertiary = ConfidenceMedium,
-    background = Background,
-    surface = Surface,
+    background = BackgroundDark,
+    surface = SurfaceCard,
     onPrimary = Color.Black,  // Black text on neon green
     onSecondary = Color.White,
     onTertiary = Color.Black,
     onBackground = TextHigh,
     onSurface = TextHigh,
-    error = Error,
+    error = Color(0xFFEF5350),
     onError = Color.White
 )
 
 // Light Color Scheme (not used but required for MaterialTheme)
 private val LightColorScheme = lightColorScheme(
-    primary = Primary,
-    secondary = Secondary,
+    primary = PrimaryNeon,
+    secondary = SecondaryPurple,
     tertiary = ConfidenceMedium,
     background = Color.White,
     surface = Color(0xFFF5F5F5),
@@ -35,7 +35,7 @@ private val LightColorScheme = lightColorScheme(
     onTertiary = Color.White,
     onBackground = Color.Black,
     onSurface = Color.Black,
-    error = Error,
+    error = Color(0xFFEF5350),
     onError = Color.White
 )
 

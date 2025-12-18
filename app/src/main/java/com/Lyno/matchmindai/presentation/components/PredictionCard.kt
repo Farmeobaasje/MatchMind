@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.clickable
 import com.Lyno.matchmindai.ui.theme.ConfidenceHigh
 import com.Lyno.matchmindai.ui.theme.ConfidenceLow
 import com.Lyno.matchmindai.ui.theme.ConfidenceMedium
@@ -39,6 +41,7 @@ fun PredictionCard(
     riskLevel: com.Lyno.matchmindai.domain.model.MatchPrediction.RiskLevel,
     reasoning: String,
     recentMatches: List<String> = emptyList(),
+    sources: List<String> = emptyList(),
     modifier: Modifier = Modifier,
     animate: Boolean = true
 ) {
@@ -184,6 +187,34 @@ fun PredictionCard(
                     }
                 }
             }
+            
+            // Sources (only if not empty)
+            if (sources.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Column {
+                    Text(
+                        text = "BRONNEN",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TextMedium
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    val uriHandler = LocalUriHandler.current
+                    Column {
+                        sources.forEach { source ->
+                            val domain = extractDomainFromUrl(source)
+                            Text(
+                                text = "• $domain",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.primary,
+                                fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
+                                modifier = Modifier.clickable {
+                                    uriHandler.openUri(source)
+                                }
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -235,5 +266,24 @@ fun PredictionCardLowConfidencePreview() {
             reasoning = "Beide teams zijn in goede vorm. PSV heeft een licht voordeel door recente overwinningen, maar statistieken wijzen op een gelijkspel.",
             recentMatches = emptyList()
         )
+    }
+}
+
+/**
+ * Extracts the domain from a URL for display purposes.
+ * Example: "https://www.vi.nl/article" -> "vi.nl"
+ */
+private fun extractDomainFromUrl(url: String): String {
+    return try {
+        // Remove protocol
+        val withoutProtocol = url.replace(Regex("^https?://"), "")
+        // Remove www. prefix
+        val withoutWww = withoutProtocol.replace(Regex("^www\\."), "")
+        // Take everything before the first slash
+        val domainPart = withoutWww.split('/').firstOrNull() ?: url
+        // If it's still a URL, take the last part before TLD
+        domainPart
+    } catch (e: Exception) {
+        url // Fallback to original URL
     }
 }

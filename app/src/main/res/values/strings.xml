@@ -14,12 +14,15 @@
     <string name="analyzing_text">ANALYSEREN...</string>
     
     <!-- Settings Screen -->
-    <string name="api_key_label">DeepSeek API Key</string>
-    <string name="api_key_placeholder">Voer je API key in</string>
+    <string name="deepseek_api_key_label">DeepSeek API Key</string>
+    <string name="deepseek_api_key_placeholder">Voer je DeepSeek API key in</string>
+    <string name="tavily_api_key_label">Tavily API Key (optioneel)</string>
+    <string name="tavily_api_key_placeholder">Voer je Tavily API key in</string>
     <string name="save_button">OPSLAAN</string>
-    <string name="api_key_info">Je API key wordt lokaal opgeslagen en nooit gedeeld.</string>
-    <string name="get_api_key_link">Waar vind ik mijn API key?</string>
+    <string name="api_key_info">Je API keys worden lokaal opgeslagen en nooit gedeeld.</string>
+    <string name="get_api_key_link">Waar vind ik mijn API keys?</string>
     <string name="deepseek_url">https://platform.deepseek.com/api_keys</string>
+    <string name="tavily_url">https://app.tavily.com/home</string>
     
     <!-- Live Data Settings -->
     <string name="use_live_data_label">Gebruik Live Data</string>
@@ -51,4 +54,133 @@
     <!-- Empty States -->
     <string name="welcome_message">Welke wedstrijd analyseren we vandaag?</string>
     <string name="no_prediction_yet">Voer teamnamen in en klik op VOORSPELLEN voor een analyse.</string>
+    
+    <!-- Today's Matches Feature -->
+    <string name="todays_matches_title">📅 Programma Binnenkort</string>
+    <string name="todays_matches_loading">Programma laden...</string>
+    <string name="todays_matches_empty">Geen wedstrijden gevonden voor de komende dagen</string>
+    <string name="todays_matches_hint">Klik op een wedstrijd om te analyseren</string>
+    <string name="todays_matches_error">Kon programma niet ophalen</string>
+    
+    <!-- Navigation Drawer -->
+    <string name="chat_screen_title">Chat Analist</string>
+    <string name="live_screen_title">Live &amp; Programma</string>
+    <string name="drawer_chat">💬 Chat Analist</string>
+    <string name="drawer_live">📅 Live &amp; Programma</string>
+    <string name="drawer_settings">⚙️ Instellingen</string>
+    
+    <!-- Live Matches Screen -->
+    <string name="live_matches_loading">Wedstrijden laden...</string>
+    <string name="live_matches_empty">Geen wedstrijden beschikbaar</string>
+    <string name="live_matches_error">Kon wedstrijden niet laden</string>
+    <string name="live_matches_select_hint">Selecteer een wedstrijd om te analyseren</string>
+    
+    <!-- Chat Input -->
+    <string name="chat_input_placeholder">Typ een wedstrijd of vraag...</string>
+    <string name="chat_input_hint">Bijv. "Voorspel Ajax Feyenoord" of "Is Real Madrid in vorm?"</string>
+    
+    <!-- Starter Prompts -->
+    <string name="starter_predict_match">⚽ Wedstrijd Voorspellen</string>
+    <string name="starter_value_spotter">💎 Value Spotter</string>
+    <string name="starter_spectacular_match">🔥 Spectaculaire Match</string>
+    <string name="starter_injury_check">🚑 Blessure Check</string>
+    
+    <!-- Widget -->
+    <string name="widget_description">AI-gedreven livescore widget met real-time updates</string>
+    <string name="widget_loading">Widget laden...</string>
+    <string name="widget_error">Widget data niet beschikbaar</string>
+    <string name="widget_no_matches">Geen live wedstrijden</string>
+    <string name="widget_ai_summary">AI Samenvatting</string>
+    <string name="widget_possession">Balbezit</string>
+    <string name="widget_shots">Schoten</string>
+    <string name="widget_corners">Corners</string>
+    
+    <!-- Matches Screen -->
+    <string name="matches_title">Wedstrijden</string>
+    <string name="navigate_back">Terug</string>
+    <string name="select_date">Selecteer datum</string>
+    <string name="collapse_all">Alles inklappen</string>
+    <string name="expand_all">Alles uitklappen</string>
+    <string name="no_matches_found">Geen wedstrijden gevonden</string>
+    <string name="no_matches_description">Er zijn geen wedstrijden beschikbaar voor deze datum</string>
+    
+    <!-- Expandable League Section -->
+    <string name="league_logo_content_description">Logo van %s</string>
+    <string name="collapse_section">Sectie inklappen</string>
+    <string name="expand_section">Sectie uitklappen</string>
+    
+    <!-- Match Detail Screen -->
+    <string name="match_detail_title">Wedstrijd Details</string>
+    <string name="tab_overview">Overzicht</string>
+    <string name="tab_stats">Stats</string>
+    <string name="tab_lineups">Opstellingen</string>
+    <string name="tab_standings">Stand</string>
+    <string name="ai_analysis_fab">AI Analyse</string>
+    <string name="match_overview_title">Wedstrijd Overzicht</string>
+    <string name="key_events_title">Belangrijkste Gebeurtenissen</string>
+    <string name="full_timeline_title">Volledige Tijdlijn</string>
+    <string name="stats_title">Statistieken</string>
+    <string name="no_stats_available">Nog geen statistieken beschikbaar</string>
+    <string name="stats_available_hint">Statistieken worden beschikbaar zodra de wedstrijd begint.</string>
+    <string name="lineups_title">Opstellingen</string>
+    <string name="no_lineups_available">Opstellingen nog niet bekend</string>
+    <string name="standings_title">Ranglijst (Top 5)</string>
+    <string name="standings_other_teams">... en 13 andere teams</string>
+    <string name="error_match_details">Fout bij ophalen wedstrijdgegevens</string>
+    <string name="no_match_data">Nog geen data beschikbaar</string>
+    <string name="no_match_data_description">Deze wedstrijd is nog niet begonnen of er zijn nog geen statistieken beschikbaar.</string>
+    <string name="try_again">Opnieuw proberen</string>
+    <string name="refresh">Vernieuwen</string>
+    <string name="invalid_match_id">Geen geldige wedstrijd ID ontvangen</string>
+    <string name="unknown_error">Onbekende fout opgetreden</string>
+    
+    <!-- Stat Types -->
+    <string name="stat_ball_possession">Balbezit</string>
+    <string name="stat_shots_on_goal">Schoten op doel</string>
+    <string name="stat_shots_total">Totale schoten</string>
+    <string name="stat_corner_kicks">Corners</string>
+    <string name="stat_fouls">Overtredingen</string>
+    <string name="stat_yellow_cards">Gele kaarten</string>
+    <string name="stat_red_cards">Rode kaarten</string>
+    <string name="stat_offsides">Buitenspel</string>
+    <string name="stat_saves">Reddingen</string>
+    <string name="stat_passes">Passes</string>
+    <string name="stat_pass_accuracy">Passnauwkeurigheid</string>
+    
+    <!-- Event Types -->
+    <string name="event_goal">Goal</string>
+    <string name="event_yellow_card">Gele kaart</string>
+    <string name="event_red_card">Rode kaart</string>
+    <string name="event_substitution">Wissel</string>
+    <string name="event_penalty">Penalty</string>
+    <string name="event_var">VAR</string>
+    <string name="event_other">Anders</string>
+    
+    <!-- Player Positions -->
+    <string name="position_goalkeeper">Keeper</string>
+    <string name="position_defender">Verdediger</string>
+    <string name="position_midfielder">Middenvelder</string>
+    <string name="position_forward">Aanvaller</string>
+    <string name="position_substitute">Wisselspeler</string>
+    <string name="position_coach">Coach</string>
+    
+    <!-- Phase 4: Rate Limit Widget -->
+    <string name="daily_energy_bar">Dagelijkse Energie Bar</string>
+    <string name="api_usage_critical">CRITIEK: Bijna op!</string>
+    <string name="api_usage_warning">WAARSCHUWING: Laag</string>
+    <string name="api_usage_normal">Normaal</string>
+    <string name="last_updated">%s geleden bijgewerkt</string>
+    
+    <!-- Phase 4: Favorite Team -->
+    <string name="favorite_team_title">Mijn Favoriete Team</string>
+    <string name="favorite_team_hint">Selecteer je favoriete team</string>
+    <string name="favorite_team_none">Geen favoriet team geselecteerd</string>
+    <string name="favorite_team_clear">Verwijder favoriet</string>
+    <string name="favorite_team_search">Zoek team...</string>
+    
+    <!-- Phase 4: Data Saver Mode -->
+    <string name="data_saver_title">Live Data Saver</string>
+    <string name="data_saver_description">Schakel automatisch live data ophalen uit om API calls te besparen</string>
+    <string name="data_saver_enabled">Data Saver AAN</string>
+    <string name="data_saver_disabled">Data Saver UIT</string>
 </resources>

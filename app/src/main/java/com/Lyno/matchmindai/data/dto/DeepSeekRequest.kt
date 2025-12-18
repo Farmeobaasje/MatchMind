@@ -2,6 +2,7 @@ package com.Lyno.matchmindai.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 /**
  * Request DTO for DeepSeek API calls.
@@ -13,18 +14,48 @@ data class DeepSeekRequest(
     @SerialName("messages") val messages: List<DeepSeekMessage>,
     @SerialName("temperature") val temperature: Double = 0.5,
     @SerialName("response_format") val responseFormat: ResponseFormat? = null,
-    @SerialName("stream") val stream: Boolean = false
+    @SerialName("stream") val stream: Boolean = false,
+    @SerialName("tools") val tools: List<ToolDto>? = null,
+    @SerialName("tool_choice") val toolChoice: String? = null
 )
 
 @Serializable
 data class DeepSeekMessage(
     @SerialName("role") val role: String,
-    @SerialName("content") val content: String
+    @SerialName("content") val content: String? = null,
+    @SerialName("tool_calls") val toolCalls: List<ToolCallDto>? = null,
+    @SerialName("tool_call_id") val toolCallId: String? = null
 )
 
 @Serializable
 data class ResponseFormat(
     @SerialName("type") val type: String
+)
+
+@Serializable
+data class ToolDto(
+    @SerialName("type") val type: String = "function",
+    @SerialName("function") val function: FunctionDto
+)
+
+@Serializable
+data class FunctionDto(
+    @SerialName("name") val name: String,
+    @SerialName("description") val description: String,
+    @SerialName("parameters") val parameters: JsonObject
+)
+
+@Serializable
+data class ToolCallDto(
+    @SerialName("id") val id: String,
+    @SerialName("type") val type: String,
+    @SerialName("function") val function: ToolFunctionCallDto
+)
+
+@Serializable
+data class ToolFunctionCallDto(
+    @SerialName("name") val name: String,
+    @SerialName("arguments") val arguments: String
 )
 
 /**

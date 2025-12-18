@@ -3,10 +3,11 @@ package com.Lyno.matchmindai.data.dto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 
 /**
  * Response DTO from DeepSeek API.
- * Matches the JSON structure defined in docs/06_prompt_engineering.md
+ * Matches JSON structure defined in docs/06_prompt_engineering.md
  */
 @Serializable
 data class DeepSeekResponse(
@@ -15,7 +16,7 @@ data class DeepSeekResponse(
     @SerialName("usage") val usage: DeepSeekUsage? = null
 ) {
     /**
-     * Parses the content string as a MatchPredictionResponse.
+     * Parses content string as a MatchPredictionResponse.
      * @return MatchPredictionResponse parsed from JSON content
      * @throws IllegalArgumentException if content is not valid JSON
      */
@@ -31,7 +32,8 @@ data class DeepSeekResponse(
 data class DeepSeekChoice(
     @SerialName("index") val index: Int,
     @SerialName("message") val message: DeepSeekMessage,
-    @SerialName("finish_reason") val finishReason: String?
+    @SerialName("finish_reason") val finishReason: String?,
+    @SerialName("reasoning_content") val reasoningContent: String? = null // R1 model reasoning trace
 )
 
 @Serializable
@@ -42,19 +44,55 @@ data class DeepSeekUsage(
 )
 
 /**
- * The actual prediction data structure that matches our prompt engineering.
+ * Flexible response data structure that can handle ANY type of AI response.
+ * Supports new AgentResponse format with flexible data field.
  */
 @Serializable
 data class MatchPredictionResponse(
-    @SerialName("winner") val winner: String,
-    @SerialName("confidence_score") val confidenceScore: Int,
-    @SerialName("risk_level") val riskLevel: RiskLevel,
-    @SerialName("reasoning") val reasoning: String,
-    @SerialName("key_factor") val keyFactor: String,
-    @SerialName("recent_matches") val recentMatches: List<String> = emptyList()
+    @SerialName("type") val type: String? = null, // "TEXT_ONLY", "LIVE_MATCH", "PREDICTION", "ANALYSIS", "STANDINGS"
+    @SerialName("text") val text: String? = null, // Main text response (new field)
+    @SerialName("content") val content: String? = null, // Legacy field, maps to text
+    @SerialName("reasoning") val reasoning: String? = null, // Legacy field, maps to text
+    @SerialName("related_data") val relatedData: JsonElement? = null, // Flexible data dump
+    @SerialName("winner") val winner: String? = null,
+    @SerialName("confidence_score") val confidenceScore: Int? = null,
+    @SerialName("risk_level") val riskLevel: RiskLevel? = null,
+    @SerialName("key_factor") val keyFactor: String? = null,
+    @SerialName("home_team") val homeTeam: String? = null,
+    @SerialName("away_team") val awayTeam: String? = null,
+    @SerialName("recent_matches") val recentMatches: List<String> = emptyList(),
+    @SerialName("sources") val sources: List<String>? = null,
+    @SerialName("suggested_actions") val suggestedActions: List<String>? = null
 ) {
     @Serializable
     enum class RiskLevel {
         LOW, MEDIUM, HIGH
+    }
+    
+    /**
+     * Gets main content text, preferring 'text' field but falling back to 'content' and 'reasoning'.
+     */
+    fun resolveContent(): String {
+        return text ?: content ?: reasoning ?: ""
+    }
+    
+    /**
+     * Gets response type, defaulting to TEXT_ONLY if not specified.
+     */
+    fun resolveType(): String {
+        return type ?: if (winner != null && confidenceScore != null) {
+            "PREDICTION"
+        } else if (homeTeam != null || awayTeam != null) {
+            "ANALYSIS"
+        } else {
+            "TEXT_ONLY"
+        }
+    }
+    
+    /**
+     * Gets suggested actions as a list, defaulting to empty list if null.
+     */
+    fun resolveSuggestedActions(): List<String> {
+        return suggestedActions ?: emptyList()
     }
 }
