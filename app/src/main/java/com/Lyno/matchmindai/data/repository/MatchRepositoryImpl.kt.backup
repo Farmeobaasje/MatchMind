@@ -1,0 +1,383 @@
+package com.Lyno.matchmindai.data.repository
+
+import android.util.Log
+import com.Lyno.matchmindai.data.dto.DeepSeekMessage
+import com.Lyno.matchmindai.data.dto.DeepSeekRequest
+import com.Lyno.matchmindai.data.dto.DeepSeekResponse
+import com.Lyno.matchmindai.data.dto.MatchPredictionResponse
+import com.Lyno.matchmindai.data.dto.ResponseFormat
+import com.Lyno.matchmindai.data.dto.football.FixtureItemDto
+import com.Lyno.matchmindai.data.local.ApiKeyStorage
+import com.Lyno.matchmindai.data.local.dao.ChatDao
+import com.Lyno.matchmindai.data.local.entity.ChatMessageEntity
+import com.Lyno.matchmindai.data.local.entity.ChatSession as ChatSessionEntity
+import com.Lyno.matchmindai.data.mapper.FootballMapper
+import com.Lyno.matchmindai.data.remote.DeepSeekApi
+import com.Lyno.matchmindai.data.remote.DeepSeekApiException
+import com.Lyno.matchmindai.data.remote.football.FootballApiService
+import com.Lyno.matchmindai.data.remote.search.SearchService
+import com.Lyno.matchmindai.data.utils.cleanJson
+import com.Lyno.matchmindai.domain.model.ChatSession
+import com.Lyno.matchmindai.domain.model.MatchFixture
+import com.Lyno.matchmindai.domain.model.MatchPrediction
+import com.Lyno.matchmindai.domain.repository.MatchRepository
+import com.Lyno.matchmindai.domain.repository.SettingsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
+
+/**
+ * Custom exception thrown when the API key is missing.
+ * This allows the UI to handle this specific error gracefully (redirect to settings).
+ */
+class ApiKeyMissingException(service: String) : Exception("$service API key is missing. Please set your API key in settings.")
+
+/**
+ * Implementation of MatchRepository that coordinates between local storage and remote API.
+ * Follows the "User-Managed Security" principle by checking for API key before making requests.
+ * Now includes RAG (Retrieval Augmented Generation) functionality via web scraping.
+ * 
+ * HYBRID MODEL UPDATE:
+ * - Uses RapidAPI (API-Football) EXCLUSIVELY for fetching daily fixtures/agenda
+ * - Predictions and analyses remain via Tavily and DeepSeek
+ * - Fallback to Tavily search if RapidAPI fails (rate limit, etc.)
+ */
+class MatchRepositoryImpl(
+    private val apiKeyStorage: ApiKeyStorage,
+    private val deepSeekApi: DeepSeekApi,
+    private val searchService: SearchService,
+    private val footballApiService: FootballApiService,
+    private val settingsRepository: SettingsRepository,
+    private val chatDao: ChatDao
+) : MatchRepository {
+
+    override suspend fun getPrediction(homeTeam: String, awayTeam: String): Result<MatchPrediction> {
+        return try {
+            // Step 1: Get user settings
+            val settings = settingsRepository.getSettings().first()
+            
+            // Step 2: Check if DeepSeek API key is present
+            if (settings.deepSeekApiKey.isBlank()) {
+                return Result.failure(ApiKeyMissingException("DeepSeek"))
+            }
+
+            // Step 3: Check if Tavily API key is needed and present
+            if (settings.useLiveData && settings.tavilyApiKey.isBlank()) {
+                return Result.failure(ApiKeyMissingException("Tavily"))
+            }
+            
+            // Step 4: Build initial prompt (agentic workflow)
+            val initialPrompt = buildAgenticPrompt(homeTeam, awayTeam, settings.useLiveData, settings.analysisMode.name)
+            
+            // Step 5: Create initial message list with SYSTEM message FIRST
+            val calendar = Calendar.getInstance()
+            val todayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+            val systemMessage = com.Lyno.matchmindai.data.dto.DeepSeekMessage(
+                role = "system",
+                content = """
+                    Jij bent MatchMind, een strikte data-analist.
+                    DATUM VANDAAG: $todayDate
+
+                    REGEL 1: DATUM VERIFICATIE
+
+                    Zoek de datum van de wedstrijd in de aangeleverde tekst.
+
+                    Is de datum NIET vandaag? -> Stop en meld dit.
+
+                    Voorbeeld antwoord: "⚠️ Let op: Deze wedstrijd is pas op zondag 14 december, niet vandaag."
+
+                    REGEL 2: FORMAT
+
+                    Als de datum afwijkt, geef GEEN JSON (want dan toont de app een voorspellingskaart). Geef gewoon tekst.
+
+                    Als de datum KLOPT (vandaag), geef DAN PAS de JSON met de voorspelling.
+
+                    REGEL 3: GEEN DATA
+
+                    Als je geen datum of wedstrijd vindt voor VANDAAG, zeg dan: "Geen wedstrijd gevonden voor deze teams op de datum van vandaag."
+
+                    REGEL 4: TOOL GEBRUIK
+
+                    Gebruik 'search_internet' om de wedstrijd te verifiëren.
+
+                    Als de scraper GEEN specifieke wedstrijddata (tijd/uitslag) vindt voor DEZE teams op/rond DEZE datum -> STOP.
+
+                    In dat geval: Return JSON met winner: "Geen Data" en reasoning: "Geen bevestigde wedstrijd gevonden...".
+
+                    GOK NIET. Hallucineren is verboden.
+
+                    Vul de lijst "sources" met de URLs die je hebt gebruikt uit de tool output.
+
+                    OUTPUT FORMAT (JSON): { "winner": "...", "confidence_score": 0, "reasoning": "...", "risk_level": "HIGH", "key_factor": "...", "sources": ["url1", "url2"], "suggested_actions": ["Korte zin 1", "Korte zin 2"] }
+
+                    REGELS VOOR ACTIONS:
+                    1. Geef ALTIJD 2 of 3 suggesties voor vervolgvragen.
+                    2. Als 'winner' == 'Geen Data': Suggesteer "Check programma morgen" of "Check andere competitie".
+                    3. Als er wel een winnaar is: Suggesteer "Wat zijn de odds?" of "Vergelijk opstellingen".
+                    4. Als het een lijst wedstrijden is: Maak voor elke wedstrijd een knop: "Voorspel [Team A] vs [Team B]".
+                """.trimIndent()
+            )
+            
+            val messages = mutableListOf(
+                systemMessage,  // SYSTEM message FIRST - always visible to AI
+                com.Lyno.matchmindai.data.dto.DeepSeekMessage(
+                    role = "user",
+                    content = initialPrompt
+                )
+            )
+            
+            // Step 6: Agentic Loop with max 3 iterations to prevent infinite loops
+            var iteration = 0
+            val maxIterations = 3
+            var loopResponse: DeepSeekResponse? = null
+            
+            while (iteration < maxIterations) {
+                iteration++
+                Log.d("MatchRepository", "=== AGENTIC LOOP ITERATION $iteration ===")
+                
+                // Create request with tools (only on first iteration if live data is enabled)
+                val includeTools = iteration == 1 && settings.useLiveData
+                val request = deepSeekApi.createAgenticRequest(messages, includeTools, settings.creativity.toDouble())
+                
+                // Call DeepSeek API
+                val response = deepSeekApi.getPrediction(settings.deepSeekApiKey, request)
+                loopResponse = response
+                
+                // Check if tool calls are needed
+                val choice = response.choices.firstOrNull()
+                val message = choice?.message
+                
+                // STEP 1: Add the assistant message (with tool_calls) to history FIRST!
+                // This is CRUCIAL for the API to accept tool messages in the next iteration
+                if (message != null) {
+                    messages.add(message)
+                }
+                
+                if (message?.toolCalls.isNullOrEmpty()) {
+                    // No tool calls needed, we have the final answer
+                    Log.d("MatchRepository", "No tool calls needed, breaking loop")
+                    break
+                }
+                
+                // STEP 2: Process tool calls and add tool messages
+                message?.toolCalls?.forEach { toolCall ->
+                    if (toolCall.function.name == "search_internet") {
+                        // Parse arguments
+                        val arguments = Json.decodeFromString<Map<String, String>>(
+                            toolCall.function.arguments
+                        )
+                        val query = arguments["query"] ?: "$homeTeam vs $awayTeam"
+                        val focus = arguments["focus"] ?: "general"
+                        
+                        // Execute search using Tavily API - use the query as search term with focus
+                        val searchResult = try {
+                            // Try to extract team names from query, fallback to using query as-is
+                            val teams = extractTeamsFromQuery(query)
+                            if (teams != null) {
+                                searchService.searchContext(teams.first, teams.second, focus, settings.tavilyApiKey)
+                            } else {
+                                // Use the query as a search term
+                                searchService.searchWithQuery(query, focus, settings.tavilyApiKey)
+                            }
+                        } catch (e: Exception) {
+                            Log.e("MatchRepository", "Failed to search with query: $query, focus: $focus", e)
+                            "Geen live data gevonden voor query: $query (focus: $focus)"
+                        }
+                        Log.d("MatchRepository", "=== TOOL CALL: search_internet ===")
+                        Log.d("MatchRepository", "Query: $query")
+                        Log.d("MatchRepository", "Focus: $focus")
+                        Log.d("MatchRepository", "Result: $searchResult")
+                        
+                        // Add tool result to messages
+                        messages.add(
+                            com.Lyno.matchmindai.data.dto.DeepSeekMessage(
+                                role = "tool",
+                                content = searchResult,
+                                toolCallId = toolCall.id  // CRUCIAAL: Geef de ID mee!
+                            )
+                        )
+                    }
+                }
+                
+                // Safety check: if we're at max iterations, break
+                if (iteration >= maxIterations) {
+                    Log.w("MatchRepository", "Max iterations reached, breaking loop")
+                    break
+                }
+            }
+            
+            // Step 7: Add validation message to force conclusion
+            messages.add(
+                com.Lyno.matchmindai.data.dto.DeepSeekMessage(
+                    role = "user",
+                    content = "Ik heb de tool-data hierboven bekeken. Conclusie: Bestaat de wedstrijd vandaag? Zo ja, geef de JSON. Zo nee, geef de error JSON. Begin met '{'."
+                )
+            )
+            
+            // Step 8: Make final API call with validation message
+            val finalRequest = deepSeekApi.createAgenticRequest(messages, includeTools = false, temperature = settings.creativity.toDouble())
+            val finalResponse = deepSeekApi.getPrediction(settings.deepSeekApiKey, finalRequest)
+            
+            // Step 9: Convert final response to domain model
+            val finalResponseContent = finalResponse.choices.firstOrNull()?.message?.content
+                ?: throw IllegalArgumentException("No content in final response")
+            
+            // Clean the JSON string to remove markdown code blocks
+            val cleanedJson = finalResponseContent.cleanJson()
+            
+            // Try to parse as error response first
+            try {
+                // Check if it's an error response
+                val errorResponse = Json.decodeFromString<ErrorResponse>(cleanedJson)
+                if (errorResponse.error != null) {
+                    Log.w("MatchRepository", "AI returned error: ${errorResponse.error}")
+                    return Result.failure(Exception(errorResponse.error))
+                }
+            } catch (e: Exception) {
+                // Not an error response, continue with normal parsing
+                Log.d("MatchRepository", "Response is not an error, parsing as prediction")
+            }
+            
+            // Parse as normal prediction response
+            val predictionResponse = Json.decodeFromString<MatchPredictionResponse>(cleanedJson)
+            val domainPrediction = predictionResponse.toDomainModel(homeTeam, awayTeam)
+            
+            // Log the final reasoning
+            Log.d("MatchRepository", "=== FINAL PREDICTION ===")
+            Log.d("MatchRepository", "Winner: ${domainPrediction.winner}")
+            Log.d("MatchRepository", "Confidence: ${domainPrediction.confidenceScore}%")
+            Log.d("MatchRepository", "Recent Matches: ${domainPrediction.recentMatches.size}")
+            Log.d("MatchRepository", "=== END PREDICTION ===")
+            
+            Result.success(domainPrediction)
+        } catch (e: ApiKeyMissingException) {
+            Result.failure(e)
+        } catch (e: DeepSeekApiException) {
+            Result.failure(Exception("API error: ${e.message}"))
+        } catch (e: Exception) {
+            Result.failure(Exception("Unexpected error: ${e.message}"))
+        }
+    }
+
+    override suspend fun getPredictionFromQuery(query: String): Result<MatchPrediction> {
+        // First, check if this is a discovery question (not a specific match prediction)
+        val isDiscoveryQuestion = isDiscoveryQuestion(query)
+        
+        if (isDiscoveryQuestion) {
+            // For discovery questions, we need to handle them differently
+            // The AI should answer the question, not predict a specific match
+            return handleDiscoveryQuestion(query)
+        }
+        
+        // Extract team names from the query using the helper function
+        val teams = extractTeamsFromQuery(query)
+        
+        if (teams == null) {
+            // If we can't extract team names, try to use the query as-is
+            // Check if the query contains common team name patterns
+            val cleanedQuery = query.trim()
+            
+            // Try to split by common separators
+            val separators = listOf(" vs ", " tegen ", " against ", " en ", " - ", " / ")
+            for (separator in separators) {
+                if (cleanedQuery.contains(separator, ignoreCase = true)) {
+                    val parts = cleanedQuery.split(separator, ignoreCase = true)
+                    if (parts.size >= 2) {
+                        val homeTeam = parts[0].trim()
+                        val awayTeam = parts[1].trim()
+                        if (homeTeam.isNotBlank() && awayTeam.isNotBlank()) {
+                            return getPrediction(homeTeam, awayTeam)
+                        }
+                    }
+                }
+            }
+            
+            // If we still can't extract teams, treat it as a general football question
+            return handleGeneralFootballQuestion(query)
+        }
+        
+        // Use extracted team names
+        return getPrediction(teams.first, teams.second)
+    }
+
+    override suspend fun getPredictionWithContext(sessionId: String, query: String): Result<MatchPrediction> {
+        // TODO: Implement with session context
+        return getPredictionFromQuery(query)
+    }
+
+    override suspend fun getTodaysMatches(): Result<List<MatchFixture>> {
+        return try {
+            // Step 1: Get user settings
+            val settings = settingsRepository.getSettings().first()
+            
+            // Step 2: Check if RapidAPI key is present
+            if (settings.rapidApiKey.isBlank()) {
+                return Result.failure(ApiKeyMissingException("RapidAPI"))
+            }
+
+            // Step 3: Get today's date in format "YYYY-MM-DD"
+            val calendar = Calendar.getInstance()
+            val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val todayDate = dateFormatter.format(calendar.time)
+            
+            Log.d("MatchRepository", "Fetching fixtures for date: $todayDate using RapidAPI")
+            
+            // Step 4: Try to fetch fixtures from RapidAPI (API-Football)
+            val rapidApiFixtures = try {
+                val fixtures = footballApiService.getFixturesByDate(todayDate)
+                Log.d("MatchRepository", "RapidAPI returned ${fixtures.size} fixtures")
+                fixtures
+            } catch (e: Exception) {
+                Log.e("MatchRepository", "RapidAPI failed, falling back to Tavily", e)
+                // Fallback to Tavily if RapidAPI fails
+                return getTodaysMatchesFallback(settings, todayDate)
+            }
+            
+            // Step 5: Filter for top leagues only
+            val filteredFixtures = FootballMapper.filterTopLeagues(rapidApiFixtures)
+            Log.d("MatchRepository", "After filtering: ${filteredFixtures.size} fixtures from top leagues")
+            
+            // Step 6: Sort by date (earliest first)
+            val sortedFixtures = FootballMapper.sortByDate(filteredFixtures)
+            
+            // Step 7: Convert to domain models
+            val domainFixtures = sortedFixtures.map { fixture ->
+                FootballMapper.run { fixture.toDomain() }
+            }
+            
+            Log.d("MatchRepository", "Successfully converted ${domainFixtures.size} fixtures to domain models")
+            Result.success(domainFixtures)
+            
+        } catch (e: ApiKeyMissingException) {
+            Result.failure(e)
+        } catch (e: Exception) {
+            Log.e("MatchRepository", "Unexpected error in getTodaysMatches", e)
+            Result.failure(Exception("Kon wedstrijden van vandaag niet ophalen: ${e.message}"))
+        }
+    }
+
+    override suspend fun getUpcomingMatches(): Result<List<MatchFixture>> {
+        // For upcoming matches, we can still use the old Tavily + DeepSeek approach
+        // since RapidAPI only provides fixtures for a specific date
+        return try {
+            // Step 1: Get user settings
+            val settings = settingsRepository.getSettings().first()
+            
+            // Step 2: Check if DeepSeek API key is present
+            if (settings.deepSeekApiKey.isBlank()) {
+                return Result.failure(ApiKeyMissingException("DeepSeek"))
+            }
+
+            // Step 3: Check if Tavily API key is needed and present
+            if (settings.tavilyApiKey.isBlank()) {
+                return Result.failure(ApiKeyMissingException("Tavily"))
+            }
+
+            // Step

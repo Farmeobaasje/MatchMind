@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Main football shape - neon green wireframe -->
+    <group>
+        <!-- Outer circle -->
+        <path
+            android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z"
+            android:strokeWidth="0.8"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.9"
+            android:fillColor="#00000000"/>
+        
+        <!-- Inner pentagon pattern -->
+        <path
+            android:pathData="M12,5L14,9L19,10L16,13L17,18L12,15L7,18L8,13L5,10L10,9z"
+            android:strokeWidth="0.6"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.8"
+            android:fillColor="#00000000"/>
+        
+        <!-- Hexagon pattern lines -->
+        <path
+            android:pathData="M8,7L10,5L14,5L16,7L14,9L10,9z"
+            android:strokeWidth="0.5"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:fillColor="#00000000"/>
+        
+        <path
+            android:pathData="M16,17L14,19L10,19L8,17L10,15L14,15z"
+            android:strokeWidth="0.5"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:fillColor="#00000000"/>
+        
+        <!-- Center dot with glow effect -->
+        <path
+            android:pathData="M12,12 m-1,0 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0"
+            android:fillColor="#FF00FF9D"
+            android:fillAlpha="0.8"/>
+        
+        <!-- Glow effect layers -->
+        <path
+            android:pathData="M12,12 m-1.5,0 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0"
+            android:fillColor="#FF00FF9D"
+            android:fillAlpha="0.3"/>
+            
+        <path
+            android:pathData="M12,12 m-2,0 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0"
+            android:fillColor="#FF00FF9D"
+            android:fillAlpha="0.1"/>
+    </group>
+    
+    <!-- Additional cyber details -->
+    <group>
+        <!-- Diagonal cross lines -->
+        <path
+            android:pathData="M6,6L18,18"
+            android:strokeWidth="0.4"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.5"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:pathData="M18,6L6,18"
+            android:strokeWidth="0.4"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.5"
+            android:strokeLineCap="round"/>
+        
+        <!-- Small corner accents -->
+        <path
+            android:pathData="M4,4L5,5"
+            android:strokeWidth="0.6"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:pathData="M20,4L19,5"
+            android:strokeWidth="0.6"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:pathData="M4,20L5,19"
+            android:strokeWidth="0.6"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:strokeLineCap="round"/>
+            
+        <path
+            android:pathData="M20,20L19,19"
+            android:strokeWidth="0.6"
+            android:strokeColor="#FF00FF9D"
+            android:strokeAlpha="0.7"
+            android:strokeLineCap="round"/>
+    </group>
+</vector>
